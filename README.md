@@ -10,7 +10,7 @@ The project is divided into three main phases, each with specific goals and tech
 1. [x] Dataset collection (Finished by classmates)
 2. [x] Annotation via cvat.ai
 3. [x] YOLO model training
-4. [ ] Corner detection 
+4. [ ] Card detection 
 5. [ ] Perspective transform 
 6. [ ] Phase 1 integration testing
 7. [ ] Phase 2 planning and implementation
@@ -25,9 +25,16 @@ The project is divided into three main phases, each with specific goals and tech
 2. **Card Detection**
    - Process within YOLO-detected bounding boxes
    - <s>Apply corner detection algorithms to locate four corners of the calibration card</s>
-   - Ensure accurate corner localization for subsequent processing
+   - Corner detection doesn't work since some corners might be covered by hand.
+   - Recognize the card exactly. 
 
-3. **Perspective Correction**
+Don't work:
+- corner detection: might be covered
+- black box detection: background might be black
+
+Now we need to find a way that can recognize the color detection area and the R, G, B pattern. Now the image is fill with the card, but still got hard to recognize.
+
+1. **Perspective Correction**
    - Implement perspective transform techniques
    - Use detected corner points for image rectification
    - Generate standardized view of calibration cards
