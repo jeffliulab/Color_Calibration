@@ -22,9 +22,9 @@ The project is divided into three main phases, each with specific goals and tech
    - Train on custom dataset to improve detection accuracy
    - Output bounding box coordinates for calibration cards
 
-2. **Corner Detection**
+2. **Card Detection**
    - Process within YOLO-detected bounding boxes
-   - Apply corner detection algorithms to locate four corners of the calibration card
+   - <s>Apply corner detection algorithms to locate four corners of the calibration card</s>
    - Ensure accurate corner localization for subsequent processing
 
 3. **Perspective Correction**

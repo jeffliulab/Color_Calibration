@@ -2,8 +2,9 @@ from ultralytics import YOLO
 import torch
 import time
 
-# NOTE: 需要修改settings.json来正确使用YOLO
+# NOTE: 需要修改settings.json来正确train
 # terminal >> open "/Users/macbookpro/Library/Application Support/Ultralytics/settings.json"
+# GCP VM >> ...
 
 def train():
     # 固定参数
