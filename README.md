@@ -42,6 +42,27 @@ This phase will commence after the successful completion of Phase 1, including:
 
 After successfully implementing the core functionality in a research environment, this project is planned to evolve into a production-grade MLOps system, including CI/CD pipelines, model management, cloud computing, and monitoring framework.
 
+## Development Process
+
+### Step1. Annotation
+
+![alt text](resources/readme/annotation_1.png)
+
+![alt text](resources/readme/annotation_2.png)
+
+### Step2. Training Model
+
+Create a GCP VM to train the model:
+
+![alt text](resources/readme/gcp.png)
+
+### Step3. YOLO detect patterns
+
+![alt text](resources/readme/detect_1_1.png)
+![alt text](resources/readme/detect_2.png)
+![alt text](resources/readme/detect_3.png)
+
+
 ## Project Plan
 ```
 color_calibration/
@@ -126,23 +147,3 @@ color_calibration/
     ├── deploy_model.sh
     └── run_tests.sh
 ```
-
-## Develop Log
-
-### Step1. Annotation
-
-![alt text](resources/readme/annotation_1.png)
-
-![alt text](resources/readme/annotation_2.png)
-
-### Step2. Training Model
-
-Create a GCP VM to train the model:
-
-![alt text](resources/readme/gcp.png)
-
-### Step3. YOLO detect patterns
-
-![alt text](resources/readme/detect_1_1.png)
-![alt text](resources/readme/detect_2.png)
-![alt text](resources/readme/detect_3.png)
