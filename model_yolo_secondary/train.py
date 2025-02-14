@@ -4,7 +4,11 @@ import time
 
 # NOTE: 需要修改settings.json来正确train
 # terminal >> open "/Users/macbookpro/Library/Application Support/Ultralytics/settings.json"
-# GCP VM >> ...
+# GCP VM >> nano /home/liujifuwork/.config/Ultralytics/settings.json
+
+# NOTE: TEST GUIDE
+# yolo predict model=best.pt source=dataset/test/images save=True
+
 
 def train():
     # 固定参数
