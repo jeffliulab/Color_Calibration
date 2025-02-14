@@ -1,69 +1,105 @@
 # Color Calibration Card Detection Project
 
-## Project Overview
+## Project Overview and Objectives
 This project aims to develop an automated system for detecting and standardizing color calibration cards in images. The system is designed to accurately locate color calibration cards and apply image processing techniques to achieve standardized presentation, laying the foundation for subsequent color calibration work.
 
-## Project Objectives
-The project is divided into three main phases, each with specific goals and technical approaches.
+The objective of this project is to use a calibration card to detect color, in any kind of circumstances. The detecting model can detect all kind of colors, which means it has the capability of generalization.
 
-**Implementation Roadmap:**
-1. [x] Dataset collection (Finished by classmates)
-2. [x] Annotation via cvat.ai
-3. [x] YOLO model training
-4. [x] Card detection 
-5. [ ] Perspective transform 
-6. [ ] Phase 1 integration testing
-7. [ ] Phase 2 planning and implementation
-8. [ ] Phase 3 planning and implementation
 
-### Phase 1: Calibration Card Detection and Standardization
-1. **Object Detection**
-   - Implement YOLOv8 for color calibration card detection
-   - Train on custom dataset to improve detection accuracy
-   - Output bounding box coordinates for calibration cards
+## Project Framework
 
-2. **Pattern Detection**
-   - Use YOLOv8 for secondary pattern detection
-   - Recognize all patterns exactly. 
+![alt text](resources/readme/pipeline.png)
 
-3. **Perspective Correction**
-   - Implement perspective transform techniques
-   - Use detected corner points for image rectification
-   - Generate standardized view of calibration cards
+## Phase 1: ETL Processing
 
-### Phase 2: Color Recognition and Calibration
-This phase will commence after the successful completion of Phase 1, including:
-- Illumination effect elimination
-- Environmental noise reduction
-- Color difference calculation and analysis
-- Color accuracy assessment
+### Find Patterns
 
-### Phase 3: MLOps and Product Implementation
 
-After successfully implementing the core functionality in a research environment, this project is planned to evolve into a production-grade MLOps system, including CI/CD pipelines, model management, cloud computing, and monitoring framework.
+**Step1. Annotation**
 
-## Development Process
+Implement YOLOv8 for color calibration card detection.
 
-### Step1. Annotation
+Firstly recognize the card:
 
-![alt text](resources/readme/annotation_1.png)
+<img src="resources/readme/annotation_1.png" width="400">
 
-![alt text](resources/readme/annotation_2.png)
+Secondly recognize the patterns:
 
-### Step2. Training Model
+<img src="resources/readme/annotation_2.png" width="400">
 
+
+
+**Step2. Training YOLOv8 model**
 Create a GCP VM to train the model:
 
-![alt text](resources/readme/gcp.png)
 
-### Step3. YOLO detect patterns
-
-![alt text](resources/readme/detect_1_1.png)
-![alt text](resources/readme/detect_2.png)
-![alt text](resources/readme/detect_3.png)
+<img src="resources/readme/gcp.png" width="400">
 
 
-## Project Plan
+**Step3. Use YOLOv8 to detect patterns**
+
+<img src="resources/readme/detect_1_1.png" width="400">
+<img src="resources/readme/detect_2.png" width="400">
+<img src="resources/readme/detect_3.png" width="400">
+
+
+## Phase 2: ETV Processing
+
+1. **Feature Extraction**
+   - Extract Red, Green, Blue, and Contrast values (`Rp, Gp, Bp, Cp`).
+   - Label each detected pattern with its corresponding reference color.
+   - Store extracted features in structured datasets for further processing.
+
+2. **Data Preprocessing**
+   - Normalize color values to ensure consistency across different lighting conditions.
+   - Apply noise reduction techniques to improve data quality.
+   - Implement automatic outlier detection and correction mechanisms.
+
+3. **Data Storage and Versioning**
+   - Store processed data in a version-controlled database using **DVC**.
+   - Maintain different versions for traceability and reproducibility.
+
+## Phase 3: MTL Processing
+
+In phase 3, the system will focus on **Machine Learning Training & Learning**:
+
+1. **Model Training & Validation**
+   - Train machine learning models on the extracted feature dataset.
+   - Evaluate different models (e.g., SVM, Random Forest, Neural Networks) for best accuracy.
+   - Apply hyperparameter tuning to optimize model performance.
+
+2. **MLflow Experiment Tracking**
+   - Log model training runs, parameters, and metrics using **MLflow**.
+   - Enable easy model comparison and reproducibility.
+   - Store best-performing models in the **Model Registry**.
+
+3. **Inference Artifact Generation**
+   - Convert trained models into deployable inference artifacts.
+   - Optimize models for real-time inference efficiency.
+   - Prepare models for integration into production.
+
+## Phase 4: MRD Processing
+
+In phase 4, the system will be **deployed and monitored**:
+
+1. **Model Deployment**
+   - Deploy the trained model as a **FastAPI REST API** for real-time inference.
+   - Containerize the deployment using **Docker & Kubernetes**.
+   - Implement auto-scaling for handling different workloads.
+
+2. **Model Registry & Version Control**
+   - Store all trained models in the **Model Registry** with versioning.
+   - Enable easy rollback in case of performance degradation.
+   - Maintain metadata logs for auditability and traceability.
+
+3. **Monitoring & Continuous Improvement**
+   - Implement monitoring tools (**Prometheus, Grafana**) to track model performance.
+   - Detect concept drift and trigger re-training when necessary.
+   - Set up an alerting system for anomaly detection and failures.
+
+
+
+## Project Structrue Plan
 ```
 color_calibration/
 ├── .github/                        # CI/CD workflows
