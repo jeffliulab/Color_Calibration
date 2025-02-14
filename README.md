@@ -10,7 +10,7 @@ The project is divided into three main phases, each with specific goals and tech
 1. [x] Dataset collection (Finished by classmates)
 2. [x] Annotation via cvat.ai
 3. [x] YOLO model training
-4. [ ] Card detection 
+4. [x] Card detection 
 5. [ ] Perspective transform 
 6. [ ] Phase 1 integration testing
 7. [ ] Phase 2 planning and implementation
@@ -22,25 +22,21 @@ The project is divided into three main phases, each with specific goals and tech
    - Train on custom dataset to improve detection accuracy
    - Output bounding box coordinates for calibration cards
 
-2. **Card Detection**
+![alt text](resources/readme/annotation_1.png)
+
+![alt text](resources/readme/annotation_2.png)
+
+
+1. **Card Detection**
    - Process within YOLO-detected bounding boxes
    - <s>Apply corner detection algorithms to locate four corners of the calibration card</s>
    - Corner detection doesn't work since some corners might be covered by hand.
    - Recognize the card exactly. 
 
-Don't work:
-- corner detection: might be covered
-- black box detection: background might be black
 
-Now we need to find a way that can recognize the color detection area and the R, G, B pattern. Now the image is fill with the card, but still got hard to recognize.
-
----
-
-Feb13 update: Try YOLOv8-Seg
-1. Annotation in polygen (using tracker)
-2. Export in COCO
-3. COCO -> YOLOv8-Seg
-
+![alt text](resources/readme/detect_1_1.png)
+![alt text](resources/readme/detect_2.png)
+![alt text](resources/readme/detect_3.png)
 
 ---
 
