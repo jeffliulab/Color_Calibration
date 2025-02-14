@@ -34,7 +34,17 @@ Don't work:
 
 Now we need to find a way that can recognize the color detection area and the R, G, B pattern. Now the image is fill with the card, but still got hard to recognize.
 
-1. **Perspective Correction**
+---
+
+Feb13 update: Try YOLOv8-Seg
+1. Annotation in polygen (using tracker)
+2. Export in COCO
+3. COCO -> YOLOv8-Seg
+
+
+---
+
+2. **Perspective Correction**
    - Implement perspective transform techniques
    - Use detected corner points for image rectification
    - Generate standardized view of calibration cards
