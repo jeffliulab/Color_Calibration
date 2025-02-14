@@ -8,7 +8,14 @@ The objective of this project is to use a calibration card to detect color, in a
 
 ## Project Framework
 
+The whole pipeline:
+
 ![alt text](resources/readme/pipeline.png)
+
+The card this project use:
+
+<img src="resources/readme/card.png" width="400">
+
 
 ## Phase 1: ETL Processing
 
@@ -30,6 +37,7 @@ Secondly recognize the patterns:
 
 
 **Step2. Training YOLOv8 model**
+
 Create a GCP VM to train the model:
 
 
@@ -38,8 +46,13 @@ Create a GCP VM to train the model:
 
 **Step3. Use YOLOv8 to detect patterns**
 
+Detect the card:
 <img src="resources/readme/detect_1_1.png" width="400">
+
+Detect the patterns:
 <img src="resources/readme/detect_2.png" width="400">
+
+Extract four patterns:
 <img src="resources/readme/detect_3.png" width="400">
 
 
