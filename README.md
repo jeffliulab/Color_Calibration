@@ -18,29 +18,15 @@ The project is divided into three main phases, each with specific goals and tech
 
 ### Phase 1: Calibration Card Detection and Standardization
 1. **Object Detection**
-   - Implement YOLO for color calibration card detection
+   - Implement YOLOv8 for color calibration card detection
    - Train on custom dataset to improve detection accuracy
    - Output bounding box coordinates for calibration cards
 
-![alt text](resources/readme/annotation_1.png)
+2. **Pattern Detection**
+   - Use YOLOv8 for secondary pattern detection
+   - Recognize all patterns exactly. 
 
-![alt text](resources/readme/annotation_2.png)
-
-
-1. **Card Detection**
-   - Process within YOLO-detected bounding boxes
-   - <s>Apply corner detection algorithms to locate four corners of the calibration card</s>
-   - Corner detection doesn't work since some corners might be covered by hand.
-   - Recognize the card exactly. 
-
-
-![alt text](resources/readme/detect_1_1.png)
-![alt text](resources/readme/detect_2.png)
-![alt text](resources/readme/detect_3.png)
-
----
-
-2. **Perspective Correction**
+3. **Perspective Correction**
    - Implement perspective transform techniques
    - Use detected corner points for image rectification
    - Generate standardized view of calibration cards
@@ -142,3 +128,21 @@ color_calibration/
 ```
 
 ## Develop Log
+
+### Step1. Annotation
+
+![alt text](resources/readme/annotation_1.png)
+
+![alt text](resources/readme/annotation_2.png)
+
+### Step2. Training Model
+
+Create a GCP VM to train the model:
+
+![alt text](resources/readme/gcp.png)
+
+### Step3. YOLO detect patterns
+
+![alt text](resources/readme/detect_1_1.png)
+![alt text](resources/readme/detect_2.png)
+![alt text](resources/readme/detect_3.png)
