@@ -1,7 +1,0 @@
- path: ./data
-                        train: train/images
-                        val: val/images
-                        test: test/images  # Added test set
-                        nc: 1  # number of classes (modify as needed)
-                        names: ['your_class']  # class names (modify as needed)
-                    

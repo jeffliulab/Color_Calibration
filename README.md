@@ -10,11 +10,127 @@ The objective of this project is to use a calibration card to detect color, in a
 
 The whole pipeline:
 
-![alt text](resources/readme/pipeline.png)
+![alt text](docs/readme/pipeline.png)
 
 The card this project use:
 
-<img src="resources/readme/card.png" width="400">
+<img src="docs/readme/card.png" width="400">
+
+
+## Project Environment and Structrue
+
+### Environment
+
+### Structure
+
+```
+Color_Calibration
+│
+├── notebooks/                     # Explanation and Demos. If you want to know
+│                                  # roughly details, you can directly see here.
+│
+├── .dvc/                          # DVC configuration
+├── data/                          # Data management
+│   ├── raw/                       # Raw Data, most are not pushed to repo
+│   ├── processed/                 # Processed Data, all data are here
+│   ├── train/                     # training dataset
+│   ├── test/                      # test dataset
+│   └── models/                    # stored models
+│
+├── configs/                       # Configurations
+│   ├── detect/                    # YOLOv8 configs
+│   ├── feature/                
+│   └── train/              
+│
+├── src/                           # Core application code
+│   ├── detect/                    # YOLOv8 - detect calibration card patterns
+│   ├── feature/                   # extract features
+│   ├── train/                     # train model
+│   └── /
+│
+├── docs/                          # docs, logs, readme files, etc.
+├── outputs/                       # running files tracking
+└── README.md
+```
+
+<!-- 
+```
+color_calibration/
+├── .github/                        # CI/CD workflows
+│   └── workflows/
+│       ├── ci.yml                 # Continuous Integration
+│       ├── cd.yml                 # Continuous Deployment
+│       └── model-training.yml     # Model training pipeline
+│
+
+
+│
+├── deployment/                    # Deployment configurations
+│   ├── docker/
+│   │   ├── Dockerfile.api
+│   │   ├── Dockerfile.training
+│   │   └── docker-compose.yml
+│   ├── kubernetes/
+│   │   ├── api-deployment.yaml
+│   │   ├── training-job.yaml
+│   │   └── monitoring/
+│   └── terraform/                # Infrastructure as Code
+│       ├── main.tf
+│       └── variables.tf
+│
+├── mlops/                        # MLOps specific code
+│   ├── monitoring/
+│   │   ├── metrics.py
+│   │   └── alerts.py
+│   ├── pipelines/
+│   │   ├── training_pipeline.py
+│   │   └── deployment_pipeline.py
+│   └── serving/
+│       ├── api.py
+│       └── middleware.py
+│
+│
+│
+├── tests/                       # Test suite
+│   ├── unit/
+│   ├── integration/
+│   └── e2e/
+│
+├── tools/                       # Development tools
+│   ├── quality_checks/
+│   └── model_analysis/
+│
+├── .env.example                 # Environment variables template
+├── Makefile                     # Build automation
+├── requirements/
+│   ├── requirements.txt         # Base requirements
+│   ├── requirements-dev.txt     # Development requirements
+│   └── requirements-prod.txt    # Production requirements
+│
+└── scripts/
+    ├── setup_monitoring.sh
+    ├── deploy_model.sh
+    └── run_tests.sh
+```
+
+├── notebooks/
+│   ├── 01-data-exploration.ipynb      # 数据探索 & 可视化
+│   ├── 02-data-cleaning.ipynb         # 数据清理
+│   ├── 03-feature-engineering.ipynb   # 特征工程
+│   ├── 04-model-training.ipynb        # 初步模型训练
+│   ├── 05-hyperparameter-tuning.ipynb # 超参数优化
+│   ├── 06-model-evaluation.ipynb      # 评估模型效果
+│   ├── 07-inference.ipynb             # 预测 & 结果分析
+│   ├── 08-visualization.ipynb         # 可视化最终结果
+│   ├── experiments/                    # 额外实验
+│   │   ├── experiment-baseline.ipynb   # 基线模型实验
+│   │   ├── experiment-new-method.ipynb # 新方法测试
+│   │   └── experiment-debug.ipynb      # 调试 Notebook
+│   ├── reports/                         # 可选，存放最终报告
+│   │   ├── final-report.ipynb
+│   │   └── presentation.ipynb
+│   ├── README.md                        # 目录说明
+-->
 
 
 ## Phase 1: ETL Processing
@@ -28,11 +144,11 @@ Implement YOLOv8 for color calibration card detection.
 
 Firstly recognize the card:
 
-<img src="resources/readme/annotation_1.png" width="400">
+<img src="docs/readme/annotation_1.png" width="400">
 
 Secondly recognize the patterns:
 
-<img src="resources/readme/annotation_2.png" width="400">
+<img src="docs/readme/annotation_2.png" width="400">
 
 
 
@@ -41,19 +157,19 @@ Secondly recognize the patterns:
 Create a GCP VM to train the model:
 
 
-<img src="resources/readme/gcp.png" width="400">
+<img src="docs/readme/gcp.png" width="400">
 
 
 **Step3. Use YOLOv8 to detect patterns**
 
 Detect the card:
-<img src="resources/readme/detect_1_1.png" width="400">
+<img src="docs/readme/detect_1_1.png" width="400">
 
 Detect the patterns:
-<img src="resources/readme/detect_2.png" width="400">
+<img src="docs/readme/detect_2.png" width="400">
 
 Extract four patterns:
-<img src="resources/readme/detect_3.png" width="400">
+<img src="docs/readme/detect_3.png" width="400">
 
 
 ## Phase 2: ETV Processing
@@ -112,87 +228,3 @@ In phase 4, the system will be **deployed and monitored**:
 
 
 
-## Project Structrue Plan
-```
-color_calibration/
-├── .github/                        # CI/CD workflows
-│   └── workflows/
-│       ├── ci.yml                 # Continuous Integration
-│       ├── cd.yml                 # Continuous Deployment
-│       └── model-training.yml     # Model training pipeline
-│
-├── configs/                        # Configurations
-│   ├── model/                     # Model configs
-│   │   ├── model_params.yaml
-│   │   └── training_params.yaml
-│   ├── monitoring/                # Monitoring configs
-│   │   ├── prometheus.yml
-│   │   └── grafana-dashboards/
-│   └── deployment/                # Deployment configs
-│       ├── dev/
-│       ├── staging/
-│       └── prod/
-│
-├── data/                          # Data management (DVC tracked)
-│   ├── raw/
-│   ├── processed/
-│   ├── train/
-│   └── val/
-│
-├── deployment/                    # Deployment configurations
-│   ├── docker/
-│   │   ├── Dockerfile.api
-│   │   ├── Dockerfile.training
-│   │   └── docker-compose.yml
-│   ├── kubernetes/
-│   │   ├── api-deployment.yaml
-│   │   ├── training-job.yaml
-│   │   └── monitoring/
-│   └── terraform/                # Infrastructure as Code
-│       ├── main.tf
-│       └── variables.tf
-│
-├── mlops/                        # MLOps specific code
-│   ├── monitoring/
-│   │   ├── metrics.py
-│   │   └── alerts.py
-│   ├── pipelines/
-│   │   ├── training_pipeline.py
-│   │   └── deployment_pipeline.py
-│   └── serving/
-│       ├── api.py
-│       └── middleware.py
-│
-├── notebooks/                    # Development notebooks
-│   ├── exploration/
-│   ├── experimentation/
-│   └── analysis/
-│
-├── src/                         # Core application code
-│   ├── detection/
-│   ├── corner/
-│   ├── transform/
-│   └── utils/
-│
-├── tests/                       # Test suite
-│   ├── unit/
-│   ├── integration/
-│   └── e2e/
-│
-├── tools/                       # Development tools
-│   ├── quality_checks/
-│   └── model_analysis/
-│
-├── .dvc/                        # DVC configuration
-├── .env.example                 # Environment variables template
-├── Makefile                     # Build automation
-├── requirements/
-│   ├── requirements.txt         # Base requirements
-│   ├── requirements-dev.txt     # Development requirements
-│   └── requirements-prod.txt    # Production requirements
-│
-└── scripts/
-    ├── setup_monitoring.sh
-    ├── deploy_model.sh
-    └── run_tests.sh
-```
