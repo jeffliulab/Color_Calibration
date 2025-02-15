@@ -1,0 +1,15 @@
+artifact_uri: /home/liujifuwork/workspace/Color_Calibration/outputs/runs/detect/yolo_first/20250215/mlflow/433118832136365615/4aadd8eb81e54b198ddc949d9bb788d3/artifacts
+end_time: 1739651819557
+entry_point_name: ''
+experiment_id: '433118832136365615'
+lifecycle_stage: active
+run_id: 4aadd8eb81e54b198ddc949d9bb788d3
+run_name: exp
+run_uuid: 4aadd8eb81e54b198ddc949d9bb788d3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1739651616882
+status: 3
+tags: []
+user_id: liujifuwork

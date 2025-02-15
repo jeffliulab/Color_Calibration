@@ -1,6 +1,0 @@
-path: ../../data/train/detect/yolo_secondary_0214
-train: train/images
-val: val/images
-test: test/images
-nc: 4
-names: ["black_box", "red_circle", "green_triangle", "blue_pentagon"]
