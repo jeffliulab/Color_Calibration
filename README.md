@@ -49,7 +49,7 @@ Color_Calibration
 │   └── /
 │
 ├── docs/                          # docs, logs, readme files, etc.
-├── outputs/                       # running files tracking
+├── outputs/                       # running files tracking, git ignored
 └── README.md
 ```
 
@@ -171,6 +171,39 @@ Detect the patterns:
 Extract four patterns:
 <img src="docs/readme/detect_3.png" width="400">
 
+**Step4. Data Augmentation**
+
+Using existant photos to make ddata augmentation.
+
+Using albumentations to implement:
+```
+augmentations = [
+    ("brightness", A.RandomBrightnessContrast(p=1.0)),
+    ("hue", A.HueSaturationValue(p=1.0)),
+    ("gamma", A.RandomGamma(p=1.0)),
+    ("motion_blur", A.MotionBlur(blur_limit=5, p=1.0)),
+    ("gaussian_blur", A.GaussianBlur(blur_limit=5, p=1.0)),
+    ("clahe", A.CLAHE(clip_limit=4.0, p=1.0)),
+    ("noise", A.ISONoise(p=1.0)),
+    ("rotate", A.Rotate(limit=10, p=1.0, border_mode=cv2.BORDER_REFLECT)),
+]
+```
+
+After augmentation, the augmentation method is marked in the file name:
+
+<img src="docs/readme/aug_data.png" width="400">
+
+The original 250 photos are increased to 2000+ photos.
+
+**Step5. Extract Patterns**
+
+Extract patterns and finish preparation for feature extractions.
+
+<img src="docs/readme/extract_patterns.png" width="400">
+
+After processing completed: Total number of images 2295, number of generated files 9263, number of failed images 21.
+
+So far, the ETL process is finished. The next step is ETV.
 
 ## Phase 2: ETV Processing
 
