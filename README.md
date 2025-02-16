@@ -222,7 +222,7 @@ The feature extraction logic now is calculate the center region of the photos, a
    - Store processed data in a version-controlled database using **DVC**.
    - Maintain different versions for traceability and reproducibility.
 
-
+Use DVC and GCP bucket to store and manage data files.
 
 
 ## Phase 3: MTL Processing
