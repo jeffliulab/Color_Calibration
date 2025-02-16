@@ -212,14 +212,18 @@ So far, the ETL process is finished. The next step is ETV.
    - Label each detected pattern with its corresponding reference color.
    - Store extracted features in structured datasets for further processing.
 
-2. **Data Preprocessing**
-   - Normalize color values to ensure consistency across different lighting conditions.
-   - Apply noise reduction techniques to improve data quality.
-   - Implement automatic outlier detection and correction mechanisms.
+After running extract_feature.py, the features of 9000 photos are stored in a .csv file:
 
-3. **Data Storage and Versioning**
+<img src="docs/readme/feature_extraction.png" width="400">
+
+The feature extraction logic now is calculate the center region of the photos, and calculate the mean RGB value. The features will be stored so there will be more feature extraction logics.
+
+2. **Data Storage and Versioning**
    - Store processed data in a version-controlled database using **DVC**.
    - Maintain different versions for traceability and reproducibility.
+
+
+
 
 ## Phase 3: MTL Processing
 

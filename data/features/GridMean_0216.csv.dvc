@@ -1,0 +1,5 @@
+outs:
+- md5: 07344b74e776dbbe8304eca056f707ab
+  size: 190972
+  hash: md5
+  path: GridMean_0216.csv
