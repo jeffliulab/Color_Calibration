@@ -1,0 +1,141 @@
+color_code,search_code,real_r,real_g,real_b
+7001_21,7001_21,247,238,234
+8002_9c,8002_9c,239, 174, 167
+6004_1A,6004_1A,234, 232, 225
+2002_4B,2002_4B,239, 184, 184
+1004_4C,1004_4C,238, 215, 226
+8002_2c,8002_2c,218, 189, 214
+1008_6C,1008_6C,241, 208, 207
+8002_1A,8002_1A,231, 224, 233
+7001_19,7001_19,228, 213, 207
+P370_motion,none,none,none,none
+8002_12B,8002_12B,236, 187, 168
+7002_10,7002_10,244, 230, 210
+8002_2B,8002_2B,223, 196, 216
+2001_4B,2001_4B,235, 189, 190
+1006_6C,1006_6C,239, 220, 222
+1001_4B,1001_4B,209, 195, 219
+1008_6a,1008_6a,208, 144, 145
+2002_6B,2002_6B,221, 153, 141
+4005_7A,4005_7A,227, 236, 240
+8002_12C,8002_12C,222, 158, 133
+2001_6C,2001_6C,243, 205, 202
+1006_6B,1006_6B,224, 196, 204
+1004_3C,1004_3C,203, 152, 178
+2001_6B,2001_6B,235, 179, 176
+2003_6B,2003_6B,233, 165, 140
+1008_4B,1008_4B,231, 181, 189
+P350_clahe,none,none,none,none
+7003_10,7003_10,232, 216, 189
+1008_4a,1008_4a,218, 147, 155
+2001_5c,2001_5c,217, 136, 131
+2011_4,2011_4,166, 71, 64
+2002_3B,2002_3B,200, 99, 97
+2002_6a,2002_6a,207, 131, 116
+2002_6C,2002_6C,236, 184, 174
+1011_shadow,none,none,none,none
+8007_3E,8007_3E,221, 229, 230
+P440_gaussian,none,none,none
+1001_4A,1001_4A,185, 169, 200
+8002_9B,8002_9B,238, 194, 187
+8002-8F_gamma,8002-8F,151, 58, 60
+1006_6a,1006_6a,205, 164, 175
+1002_4B,1002_4B,227, 209, 223
+8002_10A,8002_10A,249, 217, 208
+1004_4b,1004_4b,234, 200, 217
+8002_7c,8002_7c,234, 168, 168
+2003_6C,2003_6C,242, 201, 186
+P480_motion,none,none,none,none
+8002_9A,8002_9A,241, 217, 211
+P350_motion,none,none,none,none
+7002_17,7002_17,249, 231, 215
+1008_3C,1008_3C,202, 121, 131
+1008_5C,1008_5C,188, 123, 126
+8002-1B_rotate,8002-1B,216, 202, 223
+2001_3C,2001_3C,218, 130, 131
+8002-8F_clahe,8002-8F,151, 58, 60
+2002_3c,2002_3c,221, 138, 137
+1011_gamma,none,none,none,none
+P490_gaussian,none,none,none,none
+8002-1B_noise,8002-1B,216, 202, 223
+P440_rotate,none,none,none,none
+8007-6G_gamma,8007-6G,236, 235, 232
+8002-8F_brightness,8002-8F,151, 58, 60
+8002-8F_gaussian,8002-8F,151, 58, 60
+P490_rotate,none,none,none,none
+2002_7c,2002_7c,none,none,none
+P370_gaussian,none,none,none,none
+P370_brightness,none,none,none,none
+P370_gamma,none,none,none,none
+8007-6G_hue,8007-6G,236, 235, 232
+P480_hue,none,none,none,none
+P440_clahe,none,none,none,none
+P340_hue,none,none,none,none
+P370_rotate,none,none,none,none
+8007-6G_clahe,8007-6G,236, 235, 232
+P350_rotate,none,none,none,none
+P370_clahe,none,none,none,none
+1003_3C,1003_3C,196, 155, 191
+8002-1B_clahe,8002-1B,216, 202, 223
+8007-6G_rotate,8007-6G,236, 235, 232
+P350_shadow,none,none,none,none
+1011_clahe,none,none,none,none
+P480_shadow,none,none,none,none
+1007_5C,1007_5C,197, 144, 152
+P490_gamma,none,none,none,none
+8007-6G_shadow,8007-6G,236, 235, 232
+8002-8F_shadow,8002-8F,151, 58, 60
+P440_hue,none,none,none,none
+8002-1B_hue,8002-1B,216, 202, 223
+P490_hue,none,none,none,none
+1011_gaussian,none,none,none,none
+8007-6G_brightness,8007-6G,236, 235, 232
+8002-1B_gamma,8002-1B,216, 202, 223
+P490_clahe,none,none,none,none
+8002-1B_shadow,8002-1B,216, 202, 223
+P440_brightness,none,none,none,none
+P490_noise,none,none,none,none
+8002-8F_motion,8002-8F,151, 58, 60
+P350_gaussian,none,none,none,none
+8002-1B_gaussian,8002-1B,216, 202, 223
+1011_hue,none,none,none,none
+P490_brightness,none,none,none,none
+P370_noise,none,none,none,none
+1011_brightness,none,none,none,none
+P350_hue,none,none,none,none
+P440_shadow,none,none,none,none
+P340_motion,none,none,none,none
+8007-6G_gaussian,8007-6G,236, 235, 232
+1011_motion,none,none,none,none
+P480_brightness,none,none,none,none
+8007-6G_noise,8007-6G,236, 235, 232
+P350_gamma,none,none,none,none
+P340_shadow,none,none,none,none
+P340_gamma,none,none,none,none
+8002-8F_noise,8002-8F,151, 58, 60
+P480_gaussian,none,none,none,none
+P440_motion,none,none,none,none
+P490_shadow,none,none,none,none
+P340_rotate,none,none,none,none
+P480_rotate,none,none,none,none
+P440_noise,none,none,none,none
+P340_noise,none,none,none,none
+8002-1B_motion,8002-1B,216, 202, 223
+P340_clahe,none,none,none,none
+P480_gamma,none,none,none,none
+P340_gaussian,none,none,none,none
+8002-1B_brightness,8002-1B,216, 202, 223
+P490_motion,none,none,none,none
+8002-8F_rotate,8002-8F,151, 58, 60
+8007-6G_motion,8007-6G,236, 235, 232
+P340_brightness,none,none,none,none
+1011_noise,none,none,none,none
+P370_hue,none,none,none,none
+P440_gamma,none,none,none,none
+1011_rotate,none,none,none,none
+P480_noise,none,none,none,none
+P350_noise,none,none,none,none
+P480_clahe,none,none,none,none
+P350_brightness,none,none,none,none
+8002-8F_hue,8002-8F,151, 58, 60
+P370_shadow,none,none,none,none
