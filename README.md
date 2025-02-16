@@ -283,12 +283,108 @@ So this is the real goal of this project: find an efficient model to get the Cre
 
 Subsequent experiments will compare these methods, analyze their performance on the dataset, and select the optimal approach for further optimization. Most of above are Machine Learning models, but I still choose one classicial method to compare with others. The purpose of this project is not to find something to do with ML, but to find a suitable model to solve a real problem.
 
+### Random Forest
+
+I first selected **Random Forest** for color calibration prediction and evaluated the model's performance. This method will serve as the baseline for subsequent methods.
+
+The complete methods and training process can now be found in `notebooks/M1_RandomForest.ipynb`.
+
+#### Data Processing
+
+- Read data from `feature_0216.csv` and rename relevant columns:
+  - `Rp, Gp, Bp, Cp` represent the captured colors (affected by lighting conditions).
+  - `Rs, Gs, Bs, Cs` represent the standard reference colors (true colors).
+- Parse the `(R, G, B)` color strings and split them into individual `R, G, B` values.
+- Compute the **color deviation** between the captured values of reference objects (red, green, blue) and their standard values (`Delta_RR_red, Delta_RG_red, Delta_RB_red`, etc.).
+- Construct the feature matrix `X`, including:
+  - Color deviations (`Delta_RR_*`, `Delta_RG_*`, `Delta_RB_*`).
+  - Captured color of the target object (`Cp_R, Cp_G, Cp_B`).
+- The target variable `y` is set as `Cs_R, Cs_G, Cs_B` (true color RGB values).
+
+#### Model Training and Evaluation
+
+- **Model**: Trained using `RandomForestRegressor(n_estimators=500, random_state=42)`.
+- **Data Split**: 70% training set, 30% test set (`train_test_split(X, y, test_size=0.3, random_state=42)`).
+- **Evaluation Metrics**:
+  - `R² Score`: `0.8225`
+  - `RMSE`: `12.10`
+  - `MAPE`: `4.33%`
+  - **ΔE (Lab Color Space Error)**:
+    - **Mean ΔE**: `5.20`
+    - **Median ΔE**: `3.96`
+  - **Error Distribution**:
+    - A histogram is used to show the distribution of ΔE errors and evaluate the overall accuracy of the model’s predictions.
+
+Model prediction visualization:
+
+<img src="docs/readme/rf/model_output.png" width="300">
+
+#### Baseline Comparison
+
+To evaluate the effectiveness of the `Random Forest` model, we introduced a **non-model baseline**:
+- **Baseline Method**: Predict `y_test` using the mean of `y_train`.
+- **Baseline Evaluation**:
+  - `Baseline R² Score`: `-0.0037`
+  - `Baseline RMSE`: `31.55`
+  - `Baseline MAPE`: `14.98%`
+  - `Baseline Mean ΔE (Lab)`: `14.61`
+  - `Baseline Median ΔE (Lab)`: `13.84`
+
+The comparison shows that `Random Forest` **outperforms the baseline model in all metrics**, especially in reducing the `ΔE (Lab)` error, demonstrating that the model effectively reduces color prediction deviations.
+
+#### Color Prediction System
+
+Based on the `Random Forest` model, we developed an automated **Color Prediction System**:
+1. **Detect color regions in the image**:
+   - Use the `YOLO` object detection model (`PatternDetector`) to recognize reference objects (`red_circle, green_triangle, blue_pentagon, black_box`).
+   - Extract RGB color values from each detected region.
+2. **Compute color deviations**:
+   - Calculate `Delta_RR_*`, `Delta_RG_*`, `Delta_RB_*` as input features.
+3. **Predict the true color of the target object**:
+   - Use the trained `Random Forest` model for color correction.
+4. **Visualization of results**:
+   - Display the captured color (`Cp`), predicted true color (`Cs_pred`), and reference colors (`Rp, Gp, Bp`).
+
+#### Real-World Testing and Error Analysis
+
+Outside the training and test sets, I took an independent photo for testing. The color card in this image was not included in any of the collected data, making it a test of the model’s generalization ability.
+
+The photo is shown below:
+
+<img src="docs/readme/rf/1.png" width="300">
+
+The extraction process is as follows:
+
+<img src="docs/readme/rf/2.png" width="300">
+<img src="docs/readme/rf/3.png" width="300">
+<img src="docs/readme/rf/4.png" width="300">
+<img src="docs/readme/rf/5.png" width="300">
+<img src="docs/readme/rf/6.png" width="300">
+
+Final test results:
+
+<img src="docs/readme/rf/7.png" width="300">
+
+- In the real-world test image, the model-predicted color (`Cs_pred`) **is closer to the target color compared to the directly captured color (`Cp`)**.
+- Computation of `ΔE` in the Lab color space:
+  - `Cp vs True Color`: **`ΔE = 38.07`** ❌ (Significant error)
+  - `Cs_pred vs True Color`: **`ΔE = 16.46`** ✅ (Significant improvement)
+
+The results show that the `Random Forest` model significantly reduces color errors, making the predicted color much closer to the standard color.
+
+However, the generalization ΔE is significantly higher than the ΔE observed in the training and test sets, indicating that the model's generalization ability still has room for improvement.
+
+---
+
+These test results serve as the `Baseline` for `Random Forest` color calibration. Future directions for improvement include:
+- Expanding the dataset to improve model generalization.
+- Exploring more complex models such as `XGBoost` or `Neural Networks` for comparison.
+- Training in the `Lab` color space to enhance perceptual consistency.
 
 ### Linear 3x3 (Traditional Method)
 
 ### Linear Regression
 
-### Random Forest
 
 ### Gradient Boosting Trees
 
