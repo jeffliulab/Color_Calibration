@@ -20,6 +20,8 @@ check login status: `gcloud config set project practicalml-448114`
 
 ## dvc push
 
+like git add ., dvc also need add before push, if there is changes
+
 add data to dvc: `dvc add data`
 
 push data file: `dvc push`
