@@ -231,6 +231,18 @@ The data files including images and .csv are now stored in GCP bucket, the addre
 
 <img src="docs/readme/dvc.png" width="400">
 
+3. **Real RGB Values**
+
+After above processings, the Rp, Gp, Bp, Cp (p for real photo) have extracted.
+
+Now, the real values of Rs, Gs, Bs, Cs (s for standard) need to be known.
+
+Rs, Gs, Bs are never change, so we only need to get Cs.
+
+The real value is labeled as "real_rgb" in the last column:
+
+<img src="docs/readme/features.png" width="400">
+
 
 ## Phase 3: MTL Processing
 
