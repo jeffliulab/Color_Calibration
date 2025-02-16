@@ -241,8 +241,7 @@ Rs, Gs, Bs are never change, so we only need to get Cs.
 
 The real value is labeled as "real_rgb" in the last column:
 
-<img src="docs/readme/features.png" width="400">
-
+<img src="docs/readme/features.png">
 
 ## Phase 3: MTL Processing
 
