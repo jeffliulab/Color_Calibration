@@ -283,6 +283,8 @@ So this is the real goal of this project: find an efficient model to get the Cre
 
 Subsequent experiments will compare these methods, analyze their performance on the dataset, and select the optimal approach for further optimization. Most of above are Machine Learning models, but I still choose one classicial method to compare with others. The purpose of this project is not to find something to do with ML, but to find a suitable model to solve a real problem.
 
+---
+
 ### Random Forest
 
 I first selected **Random Forest** for color calibration prediction and evaluated the model's performance. This method will serve as the baseline for subsequent methods.
