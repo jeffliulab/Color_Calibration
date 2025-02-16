@@ -365,7 +365,7 @@ The extraction process is as follows:
 
 Final test results:
 
-<img src="docs/readme/rf/7.png" width="600">
+<img src="docs/readme/rf/7.png">
 
 - In the real-world test image, the model-predicted color (`Cs_pred`) **is closer to the target color compared to the directly captured color (`Cp`)**.
 - Computation of `ΔE` in the Lab color space:
@@ -376,12 +376,12 @@ The results show that the `Random Forest` model significantly reduces color erro
 
 However, the generalization ΔE is significantly higher than the ΔE observed in the training and test sets, indicating that the model's generalization ability still has room for improvement.
 
----
-
 These test results serve as the `Baseline` for `Random Forest` color calibration. Future directions for improvement include:
 - Expanding the dataset to improve model generalization.
 - Exploring more complex models such as `XGBoost` or `Neural Networks` for comparison.
 - Training in the `Lab` color space to enhance perceptual consistency.
+
+---
 
 ### Linear 3x3 (Traditional Method)
 
