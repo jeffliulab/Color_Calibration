@@ -251,11 +251,7 @@ In phase 3, the system will focus on **Machine Learning Training**:
 
 After **feature extraction**, the `dataset` contains approximately **2000 data points**. Given the feature mapping:
 
-\[
-(R_p, G_p, B_p, C_p) \rightarrow (R_s, G_s, B_s, C_s)
-\]
-
-<img src="https://latex.codecogs.com/svg.latex?(R_p, G_p, B_p, C_p) \rightarrow (R_s, G_s, B_s, C_s)" />
+**(Rp, Gp, Bp, Cp) → (Rs, Gs, Bs, Cs)**
 
 
 I decide to initially select and experiment with the following **five methods** for calibration and modeling:
