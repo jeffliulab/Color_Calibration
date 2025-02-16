@@ -243,43 +243,60 @@ The real value is labeled as "real_rgb" in the last column:
 
 <img src="docs/readme/features.png">
 
-## Phase 3: MTL Processing
+## Phase 3: MTL - Model Training and Validation
 
-In phase 3, the system will focus on **Machine Learning Training & Learning**:
+In phase 3, the system will focus on **Machine Learning Training**:
 
-1. **Model Training & Validation**
-   - Train machine learning models on the extracted feature dataset.
-   - Evaluate different models (e.g., SVM, Random Forest, Neural Networks) for best accuracy.
-   - Apply hyperparameter tuning to optimize model performance.
+### Model Selection
 
-2. **MLflow Experiment Tracking**
-   - Log model training runs, parameters, and metrics using **MLflow**.
-   - Enable easy model comparison and reproducibility.
-   - Store best-performing models in the **Model Registry**.
+After **feature extraction**, the `dataset` contains approximately **2000 data points**. Given the feature mapping:
 
-3. **Inference Artifact Generation**
-   - Convert trained models into deployable inference artifacts.
-   - Optimize models for real-time inference efficiency.
-   - Prepare models for integration into production.
+\[
+(R_p, G_p, B_p, C_p) \rightarrow (R_s, G_s, B_s, C_s)
+\]
 
-## Phase 4: MRD Processing
+I decide to initially select and experiment with the following **five methods** for calibration and modeling:
 
-In phase 4, the system will be **deployed and monitored**:
+1. **Linear 3×3 Matrix Correction** (Classical traditional method)  
+2. **Linear Regression**  
+3. **Random Forest**  
+4. **Gradient Boosting Trees**  
+5. **Small Neural Network**
 
-1. **Model Deployment**
-   - Deploy the trained model as a **FastAPI REST API** for real-time inference.
-   - Containerize the deployment using **Docker & Kubernetes**.
-   - Implement auto-scaling for handling different workloads.
+Subsequent experiments will compare these methods, analyze their performance on the dataset, and select the optimal approach for further optimization.
 
-2. **Model Registry & Version Control**
-   - Store all trained models in the **Model Registry** with versioning.
+### Linear 3x3 (Traditional Method)
+
+### Linear Regression
+
+### Random Forest
+
+### Gradient Boosting Trees
+
+### Small Neural Network
+
+### Validation
+
+Evaluate different models for best accuracy.
+
+Apply hyperparameter tuning to optimize model performance.
+
+## Phase 4: Model Processing & Deployment
+
+1. **MLflow Experiment Tracking & Model Registry**
+   - Track all model training runs, hyperparameters, and performance metrics using **MLflow**.
+   - Register the best-performing models in the **MLflow Model Registry** with version control.
    - Enable easy rollback in case of performance degradation.
    - Maintain metadata logs for auditability and traceability.
 
+2. **Model Packaging & Deployment**
+   - Convert trained models into **deployable inference artifacts**.
+   - Optimize models for real-time inference (e.g., quantization, ONNX, TensorRT).
+   - Deploy the trained model as a **FastAPI REST API** for real-time inference.
+   - Containerize the deployment using **Docker & Kubernetes**.
+   - Implement **auto-scaling** to handle different workloads.
+
 3. **Monitoring & Continuous Improvement**
    - Implement monitoring tools (**Prometheus, Grafana**) to track model performance.
-   - Detect concept drift and trigger re-training when necessary.
-   - Set up an alerting system for anomaly detection and failures.
-
-
-
+   - Detect **concept drift** and trigger model retraining when necessary.
+   - Set up an **alerting system** for anomaly detection and failures.
