@@ -1,8 +1,8 @@
 import pandas as pd
 
 # 读取两个CSV文件
-unique_colors_df = pd.read_csv('unique_colors.csv')
-dataset_df = pd.read_csv('GridMean_0216.csv')
+unique_colors_df = pd.read_csv('cache/0215/unique_colors.csv')
+dataset_df = pd.read_csv('cache/0215/GridMean_0216.csv')
 
 # 创建一个字典，将color_code映射到RGB元组
 color_rgb_dict = unique_colors_df.set_index('color_code')[['real_r', 'real_g', 'real_b']].apply(tuple, axis=1).to_dict()
@@ -16,6 +16,13 @@ def get_real_rgb(color_code):
 
 # 创建新的'real_rgb'列
 dataset_df['real_rgb'] = dataset_df['color_code'].apply(get_real_rgb)
+
+# 删除'real_rgb'列中包含None的行
+dataset_df.dropna(subset=['real_rgb'], inplace=True)
+
+# 删除'real_rgb'列中值为"(None, None, None)"的行
+dataset_df = dataset_df[~dataset_df['real_rgb'].str.contains("None", case=False, na=False)]
+dataset_df = dataset_df[~dataset_df['real_rgb'].str.contains("none", case=False, na=False)]
 
 # 保存修改后的dataset为新的CSV文件
 dataset_df.to_csv('updated_dataset.csv', index=False)
