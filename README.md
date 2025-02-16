@@ -317,7 +317,7 @@ The complete methods and training process can now be found in `notebooks/M1_Rand
 
 Model prediction visualization:
 
-<img src="docs/readme/rf/model_output.png" width="300">
+<img src="docs/readme/rf/model_output.png" width="400">
 
 #### Baseline Comparison
 
@@ -355,15 +355,15 @@ The photo is shown below:
 
 The extraction process is as follows:
 
-<img src="docs/readme/rf/2.png" width="300">
-<img src="docs/readme/rf/3.png" width="300">
-<img src="docs/readme/rf/4.png" width="300">
-<img src="docs/readme/rf/5.png" width="300">
-<img src="docs/readme/rf/6.png" width="300">
+<img src="docs/readme/rf/2.png" width="600">
+<img src="docs/readme/rf/3.png" width="600">
+<img src="docs/readme/rf/4.png" width="600">
+<img src="docs/readme/rf/5.png" width="600">
+<img src="docs/readme/rf/6.png" width="600">
 
 Final test results:
 
-<img src="docs/readme/rf/7.png" width="300">
+<img src="docs/readme/rf/7.png" width="600">
 
 - In the real-world test image, the model-predicted color (`Cs_pred`) **is closer to the target color compared to the directly captured color (`Cp`)**.
 - Computation of `ΔE` in the Lab color space:
