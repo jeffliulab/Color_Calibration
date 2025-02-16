@@ -30,9 +30,9 @@ Color_Calibration
 │                                  # roughly details, you can directly see here.
 │
 ├── .dvc/                          # DVC configuration
-├── data/                          # Data management
-│   ├── raw/                       # Raw Data, most are not pushed to repo
-│   ├── processed/                 # Processed Data, all data are here
+├── data/                          # Data, all stored via DVC in GCP
+│   ├── raw/                       # Raw Data
+│   ├── processed/                 # Processed Data
 │   ├── train/                     # training dataset
 │   ├── test/                      # test dataset
 │   └── models/                    # stored models
@@ -223,6 +223,11 @@ The feature extraction logic now is calculate the center region of the photos, a
    - Maintain different versions for traceability and reproducibility.
 
 Use DVC and GCP bucket to store and manage data files.
+
+The data files including images and .csv are now stored in GCP bucket, the address is:
+- gs://color_calibration
+
+<img src="docs/readme/dvc.png" width="400">
 
 
 ## Phase 3: MTL Processing
