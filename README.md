@@ -31,11 +31,12 @@ Color_Calibration
 │
 ├── .dvc/                          # DVC configuration
 ├── data/                          # Data, all stored via DVC in GCP
-│   ├── raw/                       # Raw Data
-│   ├── processed/                 # Processed Data
+│   ├── raw/                       # raw images
+│   ├── processed/                 # processed images
 │   ├── train/                     # training dataset
 │   ├── test/                      # test dataset
-│   └── models/                    # stored models
+│   ├── features/                  # store feature extraction .csv files
+│   └── models/                    # store models
 │
 ├── configs/                       # Configurations
 │   ├── detect/                    # YOLOv8 configs
@@ -43,8 +44,9 @@ Color_Calibration
 │   └── train/              
 │
 ├── src/                           # Core application code
+│   ├── data_processing/           # clean or process data for preparation
 │   ├── detect/                    # YOLOv8 - detect calibration card patterns
-│   ├── feature/                   # extract features
+│   ├── feature_extraction/        # extract features
 │   ├── train/                     # train model
 │   └── /
 │
