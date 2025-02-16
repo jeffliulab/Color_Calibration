@@ -251,10 +251,29 @@ In phase 3, the system will focus on **Machine Learning Training**:
 
 After **feature extraction**, the `dataset` contains approximately **2000 data points**. Given the feature mapping:
 
-**(Rp, Gp, Bp, Cp) → (Rs, Gs, Bs, Cs)**
+<img src="docs/readme/f0.png" width="300">
+
+In this relationship:
+- Rp, Gp, Bp: The camera-measured RGB values of known standard color of Red, Green, and Blue. Here p is for photo.
+- Cp: The camera-measured RGB value of target patch, which is got in the calbration card.
+- Rs, Gs, Bs: The standard and stable RGB value of Red(255,0,0), Green(0,255,0), and Blue(0,0,255)
 
 
-I decide to initially select and experiment with the following **five methods** for calibration and modeling:
+Below is an overview of the universal color-correction logic, regardless of which specific model (linear, random forest, neural network, etc.) ultimately choose. The key idea is that if we can find the function, or the relationship between those two groups, for example, if we can find a transformation rule, for example, if that is a matrix, then we can get:
+
+<img src="docs/readme/f1.png" width="300">
+
+Or other kind of functions:
+
+<img src="docs/readme/f2.png" width="300">
+
+Then we can in turn to get:
+
+<img src="docs/readme/f3.png" width="300">
+
+Where Creal represent the real (or canonical) RGB of the target patch.
+
+So this is the real goal of this project: find an efficient model to get the Creal. After considring, I decide to initially select and experiment with the following **five methods** for calibration and modeling:
 
 1. **Linear 3×3 Matrix Correction** (Classical traditional method)  
 2. **Linear Regression**  
@@ -262,7 +281,8 @@ I decide to initially select and experiment with the following **five methods** 
 4. **Gradient Boosting Trees**  
 5. **Small Neural Network**
 
-Subsequent experiments will compare these methods, analyze their performance on the dataset, and select the optimal approach for further optimization.
+Subsequent experiments will compare these methods, analyze their performance on the dataset, and select the optimal approach for further optimization. Most of above are Machine Learning models, but I still choose one classicial method to compare with others. The purpose of this project is not to find something to do with ML, but to find a suitable model to solve a real problem.
+
 
 ### Linear 3x3 (Traditional Method)
 
