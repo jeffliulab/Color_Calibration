@@ -351,6 +351,8 @@ Based on the `Random Forest` model, we developed an automated **Color Prediction
 
 Outside the training and test sets, I took an independent photo for testing. The color card in this image was not included in any of the collected data, making it a test of the model’s generalization ability.
 
+***Note: This photo was specifically chosen to be taken under extremely yellow lighting conditions to simulate an extreme color shift.***
+
 The photo is shown below:
 
 <img src="docs/readme/rf/1.png" width="300">
