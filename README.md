@@ -5,6 +5,11 @@ This project aims to develop an automated system for detecting and standardizing
 
 The objective of this project is to use a calibration card to detect color, in any kind of circumstances. The detecting model can detect all kind of colors, which means it has the capability of generalization.
 
+## Project Progress and Final Optimizing Goal
+
+- **Current Progress**: Lab Mean ΔE = 5.20, Lab Median ΔE = 3.96, **reaching the general commercial printing standard**
+- Optimizing V2 Goal: reduce Mean ΔE to between 3-4, suitable for most commercial applications
+- Optimizing V3 Goal: reduce Lab Mean ΔE to below 2, reaching the professional color calibration field standard
 
 ## Project Framework
 
