@@ -7,9 +7,12 @@ The objective of this project is to use a calibration card to detect color, in a
 
 ## Project Progress and Final Optimizing Goal
 
-- **Current Progress**: Lab Mean ΔE = 5.20, Lab Median ΔE = 3.96, **reaching the general commercial printing standard**
-- Optimizing V2 Goal: reduce Mean ΔE to between 3-4, suitable for most commercial applications
-- Optimizing V3 Goal: reduce Lab Mean ΔE to below 2, reaching the professional color calibration field standard
+**Current Progress**: 
+- V1 Finished: **Reaching the general commercial printing standard.** In Feb 17, V1 development was finished, Lab Mean ΔE = 5.20, Lab Median ΔE = 3.96, 
+
+**Future Development Plan:**
+- V2 Stage: Reduce Mean ΔE to between 3-4, suitable for most commercial applications.
+- V3 Stage: Reduce Lab Mean ΔE to below 2, reaching the professional color calibration field standard.
 
 ## Project Framework
 
