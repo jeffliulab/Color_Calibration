@@ -477,7 +477,7 @@ To ensure model stability, we use **K-Fold Cross-Validation**:
 **3. Hyperparameter Tuning**
 To further improve model performance, we apply **Grid Search + K-Fold Cross-Validation** for hyperparameter tuning on **Random Forest** and **XGBoost**.
 
-### **Random Forest Tuning**
+**Random Forest Tuning**
 - **Adjusted parameters**:
   - `n_estimators`: 100 → 500
   - `max_depth`: 10 → 20
@@ -486,7 +486,7 @@ To further improve model performance, we apply **Grid Search + K-Fold Cross-Vali
 
 **To be followed up**: Currently, the `Random Forest` model is trained with default parameters. **Hyperparameter tuning needs to be implemented** using `GridSearchCV` or `Optuna`.
 
-### **XGBoost Tuning**
+**XGBoost Tuning**
 - **Adjusted parameters**:
   - `learning_rate`: 0.1 → 0.05
   - `n_estimators`: 500 → 1000
