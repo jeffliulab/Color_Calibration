@@ -291,7 +291,7 @@ Subsequent experiments will compare these methods, analyze their performance on 
 
 ### Random Forest
 
-I first selected **Random Forest** for color calibration prediction and evaluated the model's performance. This method will serve as the baseline for subsequent methods.
+So far the **Random Forest** for color calibration prediction and evaluated is almost the best model in performance. Though XGBoost performs a little bit better, the difference is not obvious. Therefore, I will use this model to introduce the MTL process. Also, this method will serve as the baseline for further model optimization.
 
 The complete methods and training process can now be found in `notebooks/M1_RandomForest.ipynb`.
 
@@ -351,41 +351,6 @@ Based on the `Random Forest` model, we developed an automated **Color Prediction
 4. **Visualization of results**:
    - Display the captured color (`Cp`), predicted true color (`Cs_pred`), and reference colors (`Rp, Gp, Bp`).
 
-#### Real-World Testing and Error Analysis
-
-Outside the training and test sets, I took an independent photo for testing. The color card in this image was not included in any of the collected data, making it a test of the model’s generalization ability.
-
-***Note: This photo was specifically chosen to be taken under extremely yellow lighting conditions to simulate an extreme color shift.***
-
-The photo is shown below:
-
-<img src="docs/readme/rf/1.png" width="300">
-
-The extraction process is as follows:
-
-<img src="docs/readme/rf/2.png" width="600">
-<img src="docs/readme/rf/3.png" width="600">
-<img src="docs/readme/rf/4.png" width="600">
-<img src="docs/readme/rf/5.png" width="600">
-<img src="docs/readme/rf/6.png" width="600">
-
-Final test results:
-
-<img src="docs/readme/rf/7.png">
-
-- In the real-world test image, the model-predicted color (`Cs_pred`) **is closer to the target color compared to the directly captured color (`Cp`)**.
-- Computation of `ΔE` in the Lab color space:
-  - `Cp vs True Color`: **`ΔE = 38.07`** ❌ (Significant error)
-  - `Cs_pred vs True Color`: **`ΔE = 16.46`** ✅ (Significant improvement)
-
-The results show that the `Random Forest` model significantly reduces color errors, making the predicted color much closer to the standard color.
-
-However, the generalization ΔE is significantly higher than the ΔE observed in the training and test sets, indicating that the model's generalization ability still has room for improvement.
-
-These test results serve as the `Baseline` for `Random Forest` color calibration. Future directions for improvement include:
-- Expanding the dataset to improve model generalization.
-- Exploring more complex models such as `XGBoost` or `Neural Networks` for comparison.
-- Training in the `Lab` color space to enhance perceptual consistency.
 
 ---
 
@@ -479,9 +444,114 @@ The neural network underperforms compared to XGBoost, likely due to limited data
 
 ### Validation
 
-Evaluate different models for best accuracy.
+At this stage, it is time to evaluate the performance of different models and apply hyperparameter tuning to improve accuracy. To ensure the model's generalization ability, I use a set of evaluation metrics and conduct cross-validation.
 
-Apply hyperparameter tuning to optimize model performance.
+**1. Evaluation Metrics**
+To assess the accuracy of color calibration, we use the following metrics:
+- **R² Score**: Measures the explanatory power of the model. The closer to 1, the better.
+- **RMSE (Root Mean Squared Error)**: Measures the average deviation between predicted and actual values. Lower is better.
+- **MAPE (Mean Absolute Percentage Error)**: Measures the relative percentage of errors, useful for comparing different data ranges.
+- **ΔE (Lab Color Space Error)**:
+  - **Mean ΔE**: Average color error, reflecting overall performance.
+  - **Median ΔE**: Median color error, reducing the influence of extreme values.
+
+These metrics comprehensively evaluate the model's color prediction performance.
+
+---
+
+**2. Cross-Validation**
+To ensure model stability, we use **K-Fold Cross-Validation**:
+- **K = 5**, meaning the dataset is divided into five parts, with four used for training and one for testing in each iteration.
+- Multiple models are trained, and the **Mean Validation Score** is calculated to assess stability.
+
+**To be followed up**: Currently, only a single train-test split has been performed. **K-Fold Cross-Validation** needs to be implemented.
+
+| Model | R² Score | RMSE | MAPE | Mean ΔE | Median ΔE |
+|------|---------|------|------|---------|-----------|
+| Linear Regression | 0.7113 | 14.98 | 6.41% | 20.87 | 6.63 |
+| Random Forest | 0.8225 | 12.10 | 4.33% | 5.20 | 3.96 |
+| XGBoost | **0.8280** | **11.76** | **4.09%** | **5.14** | **3.95** |
+| Small Neural Network (MLP) | 0.7068 | 14.22 | 5.92% | 7.39 | 6.70 |
+
+---
+
+**3. Hyperparameter Tuning**
+To further improve model performance, we apply **Grid Search + K-Fold Cross-Validation** for hyperparameter tuning on **Random Forest** and **XGBoost**.
+
+### **Random Forest Tuning**
+- **Adjusted parameters**:
+  - `n_estimators`: 100 → 500
+  - `max_depth`: 10 → 20
+  - `min_samples_split`: 2 → 5
+  - `min_samples_leaf`: 1 → 3
+
+**To be followed up**: Currently, the `Random Forest` model is trained with default parameters. **Hyperparameter tuning needs to be implemented** using `GridSearchCV` or `Optuna`.
+
+---
+
+### **XGBoost Tuning**
+- **Adjusted parameters**:
+  - `learning_rate`: 0.1 → 0.05
+  - `n_estimators`: 500 → 1000
+  - `max_depth`: 5 → 7
+  - `min_child_weight`: 1 → 3
+  - `subsample`: 0.8 → 0.9
+
+**To be followed up**: XGBoost is currently trained with initial default parameters. **Hyperparameter tuning needs to be conducted**, and pre- and post-optimization results need to be recorded.
+
+---
+
+**4. Error Analysis**
+To better understand model errors, we analyze the distribution of `ΔE` errors:
+- **Error Distribution Visualization**:
+  - Most `ΔE` errors are concentrated between 3-6, with fewer extreme errors.
+  - Some extreme values (`ΔE > 15`) may be due to extreme lighting conditions causing significant color shifts.
+
+**To be followed up**: The **error distribution histogram has not been plotted yet**. Visualization needs to be added.
+
+---
+
+So far, **XGBoost is currently the best-performing model, with a final ΔE error of 5.14**, meeting commercial-grade standards. **Hyperparameter tuning and cross-validation** still need to be completed for further accuracy improvements. The next target is to **reduce ΔE to below 2.0**, achieving professional color calibration standards. This model has potential applications in **industrial color calibration, photography post-processing, and print quality control**.
+
+---
+
+### Real-World Generalization Test
+
+To test the generalization performance, I took an independent photo for testing. The color card in this image was not included in any of the collected data, making it a test of the model’s generalization ability. I use **extremely color shift lighting condition** to make sure the test is "generalize enough".
+
+***Note: This photo was specifically chosen to be taken under extremely yellow lighting conditions to simulate an extreme color shift.***
+
+The photo is shown below:
+
+<img src="docs/readme/rf/1.png" width="300">
+
+The extraction process is as follows:
+
+<img src="docs/readme/rf/2.png" width="600">
+<img src="docs/readme/rf/3.png" width="600">
+<img src="docs/readme/rf/4.png" width="600">
+<img src="docs/readme/rf/5.png" width="600">
+<img src="docs/readme/rf/6.png" width="600">
+
+Final test results:
+
+<img src="docs/readme/rf/7.png">
+
+- In the real-world test image, the model-predicted color (`Cs_pred`) **is closer to the target color compared to the directly captured color (`Cp`)**.
+- Computation of `ΔE` in the Lab color space:
+  - `Cp vs True Color`: **`ΔE = 38.07`**  (Significant error)
+  - `Cs_pred vs True Color`: **`ΔE = 16.46`**  (Significant improvement)
+
+The results show that the `Random Forest` model significantly reduces color errors, making the predicted color much closer to the standard color.
+
+However, the generalization ΔE is significantly higher than the ΔE observed in the training and test sets, indicating that the model's generalization ability still has room for improvement.
+
+These test results serve as the `Baseline` for `Random Forest` color calibration. Future directions for improvement include:
+- Expanding the dataset to improve model generalization.
+- Exploring more complex models such as `XGBoost` or `Neural Networks` for comparison.
+- Training in the `Lab` color space to enhance perceptual consistency.
+
+
 
 ## Phase 4: Model Processing & Deployment
 
