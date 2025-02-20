@@ -9,6 +9,7 @@
     "settings": {
       "terminal.integrated.defaultProfile.linux": "bash"
     },
+    "postCreateCommand": "conda activate machine_learning-docker-3.8",
     "remoteUser": "root"
   }
   
