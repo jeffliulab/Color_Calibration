@@ -441,6 +441,7 @@ XGBoost performs the best among the tested models. The boosting mechanism helps 
 **Observations:**  
 The neural network underperforms compared to XGBoost, likely due to limited data or suboptimal hyperparameters. More complex architectures, additional training epochs, or data augmentation might improve results.
 
+---
 
 ### Validation
 
@@ -457,7 +458,6 @@ To assess the accuracy of color calibration, we use the following metrics:
 
 These metrics comprehensively evaluate the model's color prediction performance.
 
----
 
 **2. Cross-Validation**
 To ensure model stability, we use **K-Fold Cross-Validation**:
@@ -473,7 +473,6 @@ To ensure model stability, we use **K-Fold Cross-Validation**:
 | XGBoost | **0.8280** | **11.76** | **4.09%** | **5.14** | **3.95** |
 | Small Neural Network (MLP) | 0.7068 | 14.22 | 5.92% | 7.39 | 6.70 |
 
----
 
 **3. Hyperparameter Tuning**
 To further improve model performance, we apply **Grid Search + K-Fold Cross-Validation** for hyperparameter tuning on **Random Forest** and **XGBoost**.
@@ -487,8 +486,6 @@ To further improve model performance, we apply **Grid Search + K-Fold Cross-Vali
 
 **To be followed up**: Currently, the `Random Forest` model is trained with default parameters. **Hyperparameter tuning needs to be implemented** using `GridSearchCV` or `Optuna`.
 
----
-
 ### **XGBoost Tuning**
 - **Adjusted parameters**:
   - `learning_rate`: 0.1 → 0.05
@@ -499,8 +496,6 @@ To further improve model performance, we apply **Grid Search + K-Fold Cross-Vali
 
 **To be followed up**: XGBoost is currently trained with initial default parameters. **Hyperparameter tuning needs to be conducted**, and pre- and post-optimization results need to be recorded.
 
----
-
 **4. Error Analysis**
 To better understand model errors, we analyze the distribution of `ΔE` errors:
 - **Error Distribution Visualization**:
@@ -508,8 +503,6 @@ To better understand model errors, we analyze the distribution of `ΔE` errors:
   - Some extreme values (`ΔE > 15`) may be due to extreme lighting conditions causing significant color shifts.
 
 **To be followed up**: The **error distribution histogram has not been plotted yet**. Visualization needs to be added.
-
----
 
 So far, **XGBoost is currently the best-performing model, with a final ΔE error of 5.14**, meeting commercial-grade standards. **Hyperparameter tuning and cross-validation** still need to be completed for further accuracy improvements. The next target is to **reduce ΔE to below 2.0**, achieving professional color calibration standards. This model has potential applications in **industrial color calibration, photography post-processing, and print quality control**.
 
