@@ -1,7 +1,7 @@
 {
     "name": "Color Calibration Development",
     "build": {
-        "dockerfile": "../Dockerfile"
+        "dockerfile": "Dockerfile"
     },
     "workspaceFolder": "/workspace",
     "extensions": [
