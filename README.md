@@ -33,7 +33,9 @@ The card this project use:
 
 ### Environment
 
-I use conda to control versions, the requirments are all in `environment.yml`.
+I use conda to control versions, the requirments are all in `environment.yml`. (Ubuntu 20.04)
+
+For better adaptbility, use Docker.
 
 ### Structure
 

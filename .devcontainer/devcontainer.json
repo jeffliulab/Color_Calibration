@@ -1,0 +1,15 @@
+{
+    "name": "Color Calibration Development",
+    "dockerFile": "Dockerfile",
+    "workspaceFolder": "/workspace",
+    "extensions": [
+      "ms-python.python",
+      "ms-vscode-remote.remote-containers"
+    ],
+    "settings": {
+      "terminal.integrated.defaultProfile.linux": "bash"
+    },
+    "postCreateCommand": "conda activate machine_learning",
+    "remoteUser": "root"
+  }
+  
