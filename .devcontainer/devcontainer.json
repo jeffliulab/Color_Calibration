@@ -1,6 +1,8 @@
 {
     "name": "Color Calibration Development",
-    "dockerFile": "../Dockerfile",
+    "build": {
+        "dockerfile": ".devcontainer/Dockerfile"
+    },
     "workspaceFolder": "/workspace",
     "extensions": [
       "ms-python.python",
@@ -9,7 +11,7 @@
     "settings": {
       "terminal.integrated.defaultProfile.linux": "bash"
     },
-    "postCreateCommand": "conda activate machine_learning-docker-3.8",
+    "postCreateCommand": "bash -c 'source /opt/conda/etc/profile.d/conda.sh && conda activate machine_learning-docker-3.8'",
     "remoteUser": "root"
   }
   

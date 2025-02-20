@@ -5,14 +5,13 @@ FROM continuumio/miniconda3:4.12.0
 WORKDIR /workspace
 
 # Copy environment.yml to the container
-COPY environment.yml /workspace/environment.yml
+COPY .devcontainer/environment.yml /workspace/environment.yml
 
 # **Install system dependencies (OpenGL related libraries + other system libraries that may be required)**
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx \
-    libglx-mesa0 \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+COPY installed_packages.txt /tmp/installed_packages.txt
+RUN apt-get update && \
+    grep -v deinstall /tmp/installed_packages.txt | awk '{print $1}' | xargs apt-get install -y && \
+    rm -rf /var/lib/apt/lists/*
 
 
 # Create a Conda environment (make sure the Python version is consistent with `environment.yml`)
@@ -25,4 +24,4 @@ RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate machine_lea
 COPY . /workspace/
 
 # Enter the Bash terminal and make sure the Conda environment is automatically activated
-CMD ["bash", "-c", "source ~/.bashrc && bash"]
+CMD ["/bin/bash", "-l"]
