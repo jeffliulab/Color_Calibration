@@ -7,20 +7,6 @@ WORKDIR /workspace
 # Copy environment.yml to the container
 COPY environment.yml /workspace/environment.yml
 
-# **Install system dependencies 
-RUN apt-get update
-RUN if command -v lspci >/dev/null 2>&1 && lspci | grep -i nvidia; then \
-        apt-get install -y --no-install-recommends nvidia-cuda-toolkit; \
-    else \
-        echo "Skipping CUDA installation (no NVIDIA detected)"; \
-    fi
-COPY installed_packages.txt /tmp/installed_packages.txt
-RUN grep -vE '^#|^$' /tmp/installed_packages.txt | awk '{print $1}' | \
-    xargs -I{} bash -c 'apt-cache show {} >/dev/null 2>&1 && apt-get install -y --no-install-recommends {} || echo "Skipping {}"' && \
-    rm -rf /var/lib/apt/lists/*
-
-
-
 
 # Create a Conda environment (make sure the Python version is consistent with `environment.yml`)
 RUN conda env create -f /workspace/environment.yml
