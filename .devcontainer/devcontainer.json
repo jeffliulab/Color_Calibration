@@ -1,6 +1,6 @@
 {
     "name": "Color Calibration Development",
-    "dockerFile": "Dockerfile",
+    "dockerFile": "../Dockerfile",
     "workspaceFolder": "/workspace",
     "extensions": [
       "ms-python.python",
