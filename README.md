@@ -548,20 +548,88 @@ These test results serve as the `Baseline` for `Random Forest` color calibration
 
 ## Phase 4: Model Processing & Deployment
 
-1. **MLflow Experiment Tracking & Model Registry**
-   - Track all model training runs, hyperparameters, and performance metrics using **MLflow**.
-   - Register the best-performing models in the **MLflow Model Registry** with version control.
-   - Enable easy rollback in case of performance degradation.
-   - Maintain metadata logs for auditability and traceability.
+The system integrates **machine learning models, model tracking, CI/CD pipelines, and scalable deployment infrastructure**. 
 
-2. **Model Packaging & Deployment**
-   - Convert trained models into **deployable inference artifacts**.
-   - Optimize models for real-time inference (e.g., quantization, ONNX, TensorRT).
-   - Deploy the trained model as a **FastAPI REST API** for real-time inference.
-   - Containerize the deployment using **Docker & Kubernetes**.
-   - Implement **auto-scaling** to handle different workloads.
+### 1. MLflow Experiment Tracking & Model Registry
+To ensure **version control, hyperparameter optimization, and model traceability**, we integrated **MLflow** into our pipeline:
+- **Experiment Tracking**: Logged all training runs, hyperparameters, evaluation metrics (R², RMSE, ΔE) using MLflow.
+- **Model Registry**: The best-performing models were registered in the **MLflow Model Registry**, enabling version control and rollback in case of performance degradation.
+- **Parameter Optimization**: Used MLflow to **compare different training configurations** (e.g., tree depths in XGBoost, learning rates in neural networks) and select the best hyperparameters.
+- **Metadata Logging**: Ensured that **all model artifacts (code, hyperparameters, metrics, dataset versions) were tracked**, facilitating reproducibility and auditability.
 
-3. **Monitoring & Continuous Improvement**
-   - Implement monitoring tools (**Prometheus, Grafana**) to track model performance.
-   - Detect **concept drift** and trigger model retraining when necessary.
-   - Set up an **alerting system** for anomaly detection and failures.
+**Outcome**: Enabled easy **model comparison, rollback, and continuous improvement** using MLflow.
+
+---
+
+### 2. Model Packaging & Deployment
+To ensure the **scalability and usability** of the model in real-world applications, the model was **packaged and deployed as a FastAPI REST API**:
+- **Inference API**: The trained model was wrapped inside a **FastAPI microservice**, exposing an endpoint for **real-time inference**.
+- **Optimized for Speed**:
+  - **ONNX Conversion**: Converted models into **ONNX format** to optimize for inference speed.
+  - **TensorRT Acceleration**: Applied TensorRT optimizations for GPU-accelerated inference.
+- **Dockerization**: Packaged the API into a **Docker container**, ensuring reproducibility across environments.
+- **Kubernetes Deployment**:
+  - Deployed the API on a **Kubernetes cluster** with autoscaling enabled.
+  - Configured **Horizontal Pod Autoscaler (HPA)** to handle varying workloads.
+  - Used **Ingress Controller** for API traffic management.
+
+**Outcome**: The deployed model can **efficiently handle real-time inference requests**, scales automatically, and is optimized for fast response times.
+
+---
+
+### 3. CI/CD Pipeline for Automated Deployment
+To ensure **continuous integration and continuous deployment (CI/CD)**, an **automated model deployment pipeline** was implemented:
+- **GitHub Actions**:
+  - Configured **CI/CD workflows** to automatically **train, evaluate, and deploy new models** when code or data updates are committed.
+  - Ensured **unit testing & integration testing** before deployment.
+- **Model Deployment Automation**:
+  - **Docker Image Build & Push**: Upon new commits, a GitHub Actions workflow automatically builds and pushes a **Docker image** to a **private container registry**.
+  - **Kubernetes Rolling Updates**: The deployment pipeline triggers **rolling updates on the Kubernetes cluster**, ensuring zero downtime.
+- **Monitoring & Alerting**:
+  - Integrated **Prometheus & Grafana** to track model performance (inference latency, request volume).
+  - Configured **alerts for anomalies** (e.g., concept drift detection, high inference latency).
+
+**Outcome**: Model updates are **automatically tested, packaged, and deployed with zero downtime**, ensuring high availability and rapid iteration.
+
+## Key Performance Achievements
+- A **fully automated ML pipeline**, optimized for **scalability, performance, and real-world deployment**.
+- **Developed a scalable ML-powered color calibration system** to accurately predict true colors under varying lighting conditions.
+- **Deployed a FastAPI-based inference API** for real-time processing in commercial applications.
+- **Best model (Random Forest) achieved a 64.4% improvement** in color calibration precision (**Lab Mean ΔE: 14.61 → 5.20**), surpassing commercial printing standards.
+- **Integrated YOLOv8 for pattern detection and automated data augmentation** to improve training data quality.
+- **Leveraged MLflow for full experiment tracking, model versioning, and hyperparameter tuning**.
+- **Implemented a fully automated CI/CD pipeline** using **Docker, Kubernetes, and GitHub Actions**, allowing seamless model deployment and updates.
+
+
+## References
+
+1. **Finlayson, G. D., & Drew, M. S. (1997).**  
+   *Constrained least-squares regression in color space.*  
+   *Journal of Electronic Imaging, 6(4), 484–493.*  
+   - Discusses the application of an improved least-squares regression method for color transformation, including handling noise and illumination variations.
+
+2. **Hong, G., Luo, M. R., & Rhodes, P. A. (2001).**  
+   *A study of digital camera colorimetric characterisation based on polynomial modeling.*  
+   *Color Research & Application, 26(1), 76–84.*  
+   - Provides a detailed discussion on how polynomial models of various orders can characterize the mapping between camera capture and true color representation.
+
+3. **Gatta, C., et al. (2007).**  
+   *A LUT-based approach for color correction in an end-to-end color imaging system.*  
+   *CIC15: Fifteenth Color Imaging Conference, 327–330.*  
+   - Introduces the use of a 3D LUT for end-to-end color correction, covering data acquisition and LUT interpolation techniques.
+
+4. **Wei, X., Luo, M. R., & Pointer, M. R. (2019).**  
+   *Evaluation of some non-linear methods for camera color characterisation.*  
+   *Color Research & Application, 44(2), 291–303.*  
+   - Compares and evaluates various nonlinear color characterization methods, including neural networks, polynomial models, and look-up tables (LUTs).
+
+5. **Shi, L., & Healey, G. (2002).**  
+   *Using reflectance spectra to recover device-independent color.*  
+   *Color Research & Application, 27(1), 50–59.*  
+   - Explores the relationship between camera spectral response and the actual surface reflectance properties for device-independent color recovery.
+
+
+
+
+
+
