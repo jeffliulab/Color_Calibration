@@ -2,3 +2,4 @@ archives
 *.cache
 outputs
 /data
+color_calibration.egg-info

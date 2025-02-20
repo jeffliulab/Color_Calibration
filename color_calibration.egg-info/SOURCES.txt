@@ -5,8 +5,14 @@ color_calibration.egg-info/SOURCES.txt
 color_calibration.egg-info/dependency_links.txt
 color_calibration.egg-info/top_level.txt
 src/__init__.py
+src/detect/__init__.py
+src/detect/yolo.py
+src/predict/__init__.py
+src/predict/predict_rf.py
 src/train/__init__.py
 src/train/pre_train.py
+src/train/train_linear_regression.py
+src/train/train_mlp.py
 src/train/train_rf.py
+src/train/train_xgboost.py
 tests/test_generalize.py
-tests/test_model.py
