@@ -1,20 +1,28 @@
-# 选择官方 Miniconda3 镜像（Python 3.8）
+# Select the official Miniconda3 image (Python 3.8)
 FROM continuumio/miniconda3:4.12.0
 
-# 设置工作目录
+# Set the working directory
 WORKDIR /workspace
 
-# 复制 environment.yml 到容器
+# Copy environment.yml to the container
 COPY environment.yml /workspace/environment.yml
 
-# 创建 Conda 环境（确保 Python 版本与 `environment.yml` 一致）
+# **Install system dependencies (OpenGL related libraries + other system libraries that may be required)**
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    libglx-mesa0 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# Create a Conda environment (make sure the Python version is consistent with `environment.yml`)
 RUN conda env create -f /workspace/environment.yml
 
-# **激活 Conda 环境并设置默认环境**
+# **Activate Conda environment and set default environment**
 RUN echo "source /opt/conda/etc/profile.d/conda.sh && conda activate machine_learning-docker-3.8" >> ~/.bashrc
 
-# 复制项目代码到容器（避免 `.git` 影响）
+#Copy the project code to the container (avoid the influence of `.git`)
 COPY . /workspace/
 
-# 进入 Bash 终端，并确保 Conda 环境自动激活
+# Enter the Bash terminal and make sure the Conda environment is automatically activated
 CMD ["bash", "-c", "source ~/.bashrc && bash"]
