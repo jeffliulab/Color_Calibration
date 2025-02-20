@@ -1,21 +1,102 @@
-from ultralytics import YOLO
+from pathlib import Path
+from typing import List, Tuple, Optional
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-from typing import List, Tuple, Optional
-import ast
 import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+from ultralytics import YOLO
+import joblib
+
+from src.detect.yolo import PatternDetector
+
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+
+class getRGB:
+    def __init__(self):
+        self.pattern_detector = PatternDetector()
+
+    def getRGB(self, image) -> List[Tuple[Optional[Tuple[int, int, int]], Optional[str]]]:
+        """
+        Extract RGB values from the center of each pattern using 3x3 grid method.
+        
+        Args:
+            image: Input image (numpy array in BGR format)
+            
+        Returns:
+            list: List of tuples (RGB_value, class_name) or (None, None) for missing patterns
+        """
+        patterns = self.pattern_detector.getPattern(image, show_results=True)
+        results = []
+
+        for i, (pattern, class_name) in enumerate(patterns, start=1):
+            if pattern is None:
+                results.append((None, None))
+                continue
+
+            # Convert to RGB
+            pattern_rgb = cv2.cvtColor(pattern, cv2.COLOR_BGR2RGB)
+            
+            # Get center region
+            h, w, _ = pattern_rgb.shape
+            row_start = h // 3
+            row_end = 2 * (h // 3)
+            col_start = w // 3
+            col_end = 2 * (w // 3)
+            
+            center_region = pattern_rgb[row_start:row_end, col_start:col_end]
+            
+            # Calculate average color
+            avg_color = tuple(np.mean(center_region, axis=(0, 1)).astype(int))
+            results.append((avg_color, class_name))
+
+            # Visualize the center region and its average color
+            plt.figure(figsize=(10, 3))
+            
+            # Original pattern with center region highlighted
+            plt.subplot(1, 3, 1)
+            plt.imshow(pattern_rgb)
+            plt.gca().add_patch(plt.Rectangle((col_start, row_start), 
+                                            col_end-col_start, 
+                                            row_end-row_start, 
+                                            fill=False, 
+                                            color='red', 
+                                            linewidth=2))
+            plt.title(f'{class_name}\nwith Center Region')
+            plt.axis('off')
+            
+            # Center region
+            plt.subplot(1, 3, 2)
+            plt.imshow(center_region)
+            plt.title('Center Region')
+            plt.axis('off')
+            
+            # Average color
+            plt.subplot(1, 3, 3)
+            color_display = np.full((100, 100, 3), avg_color, dtype=np.uint8)
+            plt.imshow(color_display)
+            plt.title(f'Average Color\nRGB{avg_color}')
+            plt.axis('off')
+            
+            plt.tight_layout()
+            plt.show()
+
+        return results
+
+
 
 class ColorPredictionSystem:
-    def __init__(self, rf_model: RandomForestRegressor):
+    def __init__(self, model_dir_str): # 预留：self.true_color parameter
         """
         初始化颜色预测系统
         
         Args:
-            rf_model: 已训练好的RandomForestRegressor模型实例
+            model: 已训练好的RandomForestRegressor模型实例
         """
-        self.pattern_detector = PatternDetector()
-        self.rf_model = rf_model
+        self.get_rgb = getRGB()
+        self.model = model_dir_str
+        self.true_color = (248, 212, 198)
         
         # 定义标准参考色值
         self.reference_colors = {
@@ -49,7 +130,7 @@ class ColorPredictionSystem:
                 raise ValueError(f"Cannot read image at {image}")
 
         # 获取各个pattern的RGB值
-        pattern_results = self.pattern_detector.getRGB(image)
+        pattern_results = self.get_rgb.getRGB(image)
         
         # 转换为字典
         pattern_dict = {class_name: rgb for rgb, class_name in pattern_results if rgb is not None}
@@ -105,7 +186,7 @@ class ColorPredictionSystem:
 
         # 预测
         # input_features_arr = np.array(input_features).reshape(1, -1)
-        # predicted_rgb = tuple(self.rf_model.predict(input_features_arr)[0].astype(int))
+        # predicted_rgb = tuple(self.model.predict(input_features_arr)[0].astype(int))
 
         # 定义特征名称 (确保顺序与训练时一致)
         feature_names = [
@@ -119,7 +200,7 @@ class ColorPredictionSystem:
         input_features_df = pd.DataFrame([input_features], columns=feature_names)
 
         # **进行预测**
-        predicted_rgb = tuple(self.rf_model.predict(input_features_df)[0].astype(int))
+        predicted_rgb = tuple(self.model.predict(input_features_df)[0].astype(int))
 
 
         # 可视化结果
@@ -149,7 +230,7 @@ class ColorPredictionSystem:
 
             # **新增代码: 显示参考颜色 (真实色)**
             plt.subplot(1, 7, 6)  # 修改：索引改为 6
-            true_color = self.reference_colors.get('Real Color', (248, 212, 198))  
+            true_color = self.reference_colors.get('Real Color', self.true_color)  
             color_display = np.full((100, 100, 3), true_color, dtype=np.uint8)
             plt.imshow(color_display)
             plt.title(f'True Color\nRGB{true_color}')
@@ -182,56 +263,27 @@ class ColorPredictionSystem:
         plt.tight_layout()
         plt.show()
 
-# 使用示例：
-try:
-    # 初始化系统
-    system = ColorPredictionSystem(rf_model=rf_model)
-    
-    # 预测颜色
-    captured_color, predicted_color = system.predict_true_color('demo_image/test_image.png')
-    
-    print("\nResults:")
-    print("拍摄到的目标色 (Cp):", captured_color)
-    print("模型实际上的真实色：",(248, 212, 198) ) # 修改这里的时候记得把上面作图的部分的对应代码也改了
-    print("模型预测的真实色 (Cs_pred):", predicted_color)
-    
-except ValueError as e:
-    print(f"\n错误: {e}")
-except Exception as e:
-    print(f"\n发生未预期的错误: {e}")
 
+if __name__ == "__main__":
+    try:
+        # 初始化系统
+        model_path = ROOT_DIR / "data/models/random_forest/model_v1.pkl"
+        model = joblib.load(model_path)  # 这里定义 rf_model
 
-
-from skimage.color import rgb2lab, deltaE_cie76
-
-# INPUT TRUE RGB OF TEST COLOR CALIBRATION HERE
-true_rgb = (248, 212, 198)
-
-
-def rgb_to_lab(rgb: tuple) -> np.ndarray:
-    """
-    将 RGB 颜色转换为 Lab 颜色空间。
-    
-    Args:
-        rgb: 颜色的 (R, G, B) 元组，范围 [0, 255]
-    
-    Returns:
-        np.ndarray: Lab 颜色空间的值
-    """
-    rgb = np.array(rgb, dtype=np.float32) / 255.0  # 归一化到 [0,1]
-    return rgb2lab(rgb.reshape(1, 1, 3)).reshape(3)
-
-# 确保 `true_rgb` 变量已经在内存中定义
-true_lab = rgb_to_lab(true_rgb)
-captured_lab = rgb_to_lab(captured_color)
-predicted_lab = rgb_to_lab(predicted_color)
-
-# 计算 Delta E
-delta_e_captured = deltaE_cie76(true_lab, captured_lab)
-delta_e_predicted = deltaE_cie76(true_lab, predicted_lab)
-
-print("\n颜色误差分析:")
-print(f"拍摄色 (Cp) vs 真实色: ΔE = {delta_e_captured:.2f}")
-print(f"预测色 (Cs_pred) vs 真实色: ΔE = {delta_e_predicted:.2f}")
-
+        system = ColorPredictionSystem(model)
+        
+        # 预测颜色
+        test_image_dir = ROOT_DIR / "data/images/generalization/test.png"
+        test_image_dir_str = str(test_image_dir)
+        captured_color, predicted_color = system.predict_true_color(test_image_dir_str)
+        
+        print("\nResults:")
+        print("拍摄到的目标色 (Cp):", captured_color)
+        print("模型实际上的真实色：",(248, 212, 198) ) # 修改这里的时候记得把上面作图的部分的对应代码也改了
+        print("模型预测的真实色 (Cs_pred):", predicted_color)
+        
+    except ValueError as e:
+        print(f"\n错误: {e}")
+    except Exception as e:
+        print(f"\n发生未预期的错误: {e}")
 
