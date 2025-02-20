@@ -11,7 +11,7 @@ COPY environment.yml /workspace/environment.yml
 RUN conda env create -f /workspace/environment.yml
 
 # 激活 Conda 环境并设置默认启动环境
-RUN echo "conda activate machine_learning" >> ~/.bashrc
+RUN echo "conda activate machine_learning-docker-3.8" >> ~/.bashrc
 
 # 复制项目代码到容器（避免 `.git` 影响）
 COPY . /workspace/

@@ -1,4 +1,4 @@
-name: machine_learning
+name: machine_learning-docker-3.8
 channels:
   - defaults
   - https://repo.anaconda.com/pkgs/main
