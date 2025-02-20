@@ -8,7 +8,11 @@ The objective of this project is to use a calibration card to detect color, in a
 ## Project Progress and Final Optimizing Goal
 
 **Current Progress**: 
-- V1 Finished: **Reaching the general commercial printing standard.** In Feb 17, V1 development was finished, Lab Mean ΔE = 5.20, Lab Median ΔE = 3.96, 
+- V1 Finished: **Reaching the general commercial printing standard.** In Feb 20, the XGBoost model reach the highest score of Lab Mean ΔE = 5.20, Lab Median ΔE = 3.96. This result meets general commercial printing standards.
+
+Through V1 exploration, it is showned that the tree model performs better in this group of dataset and trainings.
+
+I will continue to explore the effects of other data sets, different data enhancements, and even different color recognition cards in the future.
 
 **Future Development Plan:**
 - V2 Stage: Reduce Mean ΔE to between 3-4, suitable for most commercial applications.
