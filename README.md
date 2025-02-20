@@ -603,33 +603,24 @@ To ensure **continuous integration and continuous deployment (CI/CD)**, an **aut
 
 ## References
 
-1. **Finlayson, G. D., & Drew, M. S. (1997).**  
-   *Constrained least-squares regression in color space.*  
-   *Journal of Electronic Imaging, 6(4), 484–493.*  
-   - Discusses the application of an improved least-squares regression method for color transformation, including handling noise and illumination variations.
+[1] Finlayson, G. D., & Drew, M. S. (1997). "Constrained least-squares regression in color spaces." Journal of Electronic Imaging, 6(4), 484–493.
 
-2. **Hong, G., Luo, M. R., & Rhodes, P. A. (2001).**  
-   *A study of digital camera colorimetric characterisation based on polynomial modeling.*  
-   *Color Research & Application, 26(1), 76–84.*  
-   - Provides a detailed discussion on how polynomial models of various orders can characterize the mapping between camera capture and true color representation.
+This paper explores the application of constrained least-squares regression in color transformations, addressing issues related to noise and illumination variations.
 
-3. **Gatta, C., et al. (2007).**  
-   *A LUT-based approach for color correction in an end-to-end color imaging system.*  
-   *CIC15: Fifteenth Color Imaging Conference, 327–330.*  
-   - Introduces the use of a 3D LUT for end-to-end color correction, covering data acquisition and LUT interpolation techniques.
+[2] Hong, G., Luo, M. R., & Rhodes, P. A. (2001). "A study of digital camera colorimetric characterisation based on polynomial modeling." Color Research & Application, 26(1), 76–84.
 
-4. **Wei, X., Luo, M. R., & Pointer, M. R. (2019).**  
-   *Evaluation of some non-linear methods for camera color characterisation.*  
-   *Color Research & Application, 44(2), 291–303.*  
-   - Compares and evaluates various nonlinear color characterization methods, including neural networks, polynomial models, and look-up tables (LUTs).
+This study discusses in detail how polynomial models can represent the mapping from camera RGB signals to true colors, providing insights into the effectiveness of various polynomial degrees in characterizing digital cameras.
 
-5. **Shi, L., & Healey, G. (2002).**  
-   *Using reflectance spectra to recover device-independent color.*  
-   *Color Research & Application, 27(1), 50–59.*  
-   - Explores the relationship between camera spectral response and the actual surface reflectance properties for device-independent color recovery.
+[3] Gatta, C., et al. (2007). "A LUT-based approach for color correction in an end-to-end color imaging system." CIC15: Fifteenth Color Imaging Conference, 327–330.
 
+This paper introduces the use of 3D Look-Up Tables (LUTs) for end-to-end color correction, covering aspects such as data acquisition and LUT interpolation techniques.
 
+[4] Wei, X., Luo, M. R., & Pointer, M. R. (2019). "Evaluation of some non-linear methods for camera color characterisation." Color Research & Application, 44(2), 291–303.
 
+This research evaluates various non-linear methods—including neural networks, polynomial models, and Look-Up Tables—for camera color characterization, comparing their performance and applicability.
 
+[5] Shi, L., & Healey, G. (2002). "Using reflectance spectra to recover device-independent color." Color Research & Application, 27(1), 50–59.
+
+This paper delves into the relationship between camera spectral responses and true surface reflectance, discussing methods to recover device-independent color representations from reflectance spectra.
 
 
