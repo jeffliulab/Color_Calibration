@@ -33,6 +33,8 @@ The card this project use:
 
 ### Environment
 
+I use conda to control versions, the requirments are all in `environment.yml`.
+
 ### Structure
 
 ```
