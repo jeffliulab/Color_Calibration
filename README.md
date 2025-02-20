@@ -55,8 +55,10 @@ Color_Calibration
 │   ├── data_processing/           # clean or process data for preparation
 │   ├── detect/                    # YOLOv8 - detect calibration card patterns
 │   ├── feature_extraction/        # extract features
-│   ├── train/                     # train model
+│   ├── train/                     # train and evaluate model
 │   └── /
+│
+├── test/                          # generalization test
 │
 ├── docs/                          # docs, logs, readme files, etc.
 ├── outputs/                       # running files tracking, git ignored
@@ -72,8 +74,6 @@ color_calibration/
 │       ├── cd.yml                 # Continuous Deployment
 │       └── model-training.yml     # Model training pipeline
 │
-
-
 │
 ├── deployment/                    # Deployment configurations
 │   ├── docker/
@@ -98,13 +98,6 @@ color_calibration/
 │   └── serving/
 │       ├── api.py
 │       └── middleware.py
-│
-│
-│
-├── tests/                       # Test suite
-│   ├── unit/
-│   ├── integration/
-│   └── e2e/
 │
 ├── tools/                       # Development tools
 │   ├── quality_checks/
@@ -283,11 +276,10 @@ Where Creal represent the real (or canonical) RGB of the target patch.
 
 So this is the real goal of this project: find an efficient model to get the Creal. After considring, I decide to initially select and experiment with the following **five methods** for calibration and modeling:
 
-1. **Linear 3×3 Matrix Correction** (Classical traditional method)  
-2. **Linear Regression**  
-3. **Random Forest**  
-4. **Gradient Boosting Trees**  
-5. **Small Neural Network**
+1. **Linear Regression**  
+2. **Random Forest**  
+3. **Gradient Boosting Trees**  
+4. **Small Neural Network**
 
 Subsequent experiments will compare these methods, analyze their performance on the dataset, and select the optimal approach for further optimization. Most of above are Machine Learning models, but I still choose one classicial method to compare with others. The purpose of this project is not to find something to do with ML, but to find a suitable model to solve a real problem.
 
@@ -393,14 +385,93 @@ These test results serve as the `Baseline` for `Random Forest` color calibration
 
 ---
 
-### Linear 3x3 (Traditional Method)
 
-### Linear Regression
+### Linear Regression 3x3
+
+**Model Configuration:**  
+- **Algorithm:** Linear Regression  
+- **Input Features:** Standardized RGB values and reference color differences  
+- **Training Strategy:** Least squares optimization (linear transformation matrix)  
+- **Reasoning:**  
+  - Linear regression is a simple and interpretable approach that attempts to find the optimal transformation matrix mapping input colors to corrected colors.  
+  - Since color correction is inherently a non-linear problem, linear regression may struggle to capture subtle variations.  
+
+**Results:**  
+- **R² Score:** 0.7113  
+- **RMSE:** 14.98  
+- **MAPE:** 6.41%  
+- **Mean Color Difference (ΔE):** 20.87  
+- **Mean ΔE (Lab):** 6.63  
+- **Median ΔE (Lab):** 5.53  
+
+<img src="docs/readme/model_evaluation/linear_regression.png" width="300">
 
 
-### Gradient Boosting Trees
+**Observations:**  
+Linear regression provides a basic baseline but fails to capture non-linearities in color transformations. It produces the highest color difference errors, suggesting that a more flexible model is needed.
 
-### Small Neural Network
+---
+
+### Gradient Boosting Trees (XGBoost)
+
+**Model Configuration:**  
+- **Algorithm:** XGBoost (Gradient Boosting Decision Trees)  
+- **Boosting Rounds:** 500  
+- **Learning Rate:** 0.1  
+- **Tree Depth:** 5  
+- **Objective:** Squared error loss (reg:squarederror)  
+- **Reasoning:**  
+  - Gradient Boosting Trees (GBT) iteratively improve predictions by focusing on previous errors.  
+  - GBT models are well-suited for structured data and can effectively model non-linear relationships.  
+  - XGBoost provides built-in support for multi-output regression, making it a strong candidate for color prediction tasks.  
+
+**Results:**  
+- **R² Score:** 0.8280  
+- **RMSE:** 11.76  
+- **MAPE:** 4.09%  
+- **Mean Color Difference (ΔE):** 13.64  
+- **Mean ΔE (Lab):** 5.14  
+- **Median ΔE (Lab):** 3.95  
+
+<img src="docs/readme/model_evaluation/xgboost.png" width="300">
+
+
+**Observations:**  
+XGBoost performs the best among the tested models. The boosting mechanism helps capture complex interactions between input features, reducing prediction errors significantly.
+
+---
+
+### Small Neural Network (MLP)
+
+**Model Configuration:**  
+- **Network Architecture:**  
+  - Input Layer: Features from color calibration  
+  - Hidden Layer 1: 64 neurons (ReLU activation)  
+  - Hidden Layer 2: 64 neurons (ReLU activation)  
+  - Output Layer: 3 neurons (RGB values)  
+- **Loss Function:** Mean Squared Error (MSE)  
+- **Optimizer:** Adam (learning rate = 0.001)  
+- **Training Epochs:** 500  
+- **Batch Size:** 32  
+- **Reasoning:**  
+  - Neural networks can approximate non-linear relationships in color transformations.  
+  - The chosen architecture is relatively small to avoid overfitting while still capturing relevant feature interactions.  
+  - ReLU activation ensures efficient gradient propagation, while Adam optimizer adapts learning rates for better convergence.  
+
+**Results:**  
+- **R² Score:** 0.7068  
+- **RMSE:** 14.22  
+- **MAPE:** 5.92%  
+- **Mean Color Difference (ΔE):** 20.21  
+- **Mean ΔE (Lab):** 7.39  
+- **Median ΔE (Lab):** 6.70  
+
+<img src="docs/readme/model_evaluation/mlp.png" width="300">
+
+
+**Observations:**  
+The neural network underperforms compared to XGBoost, likely due to limited data or suboptimal hyperparameters. More complex architectures, additional training epochs, or data augmentation might improve results.
+
 
 ### Validation
 
