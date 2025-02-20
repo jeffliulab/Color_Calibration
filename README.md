@@ -559,7 +559,7 @@ To ensure **version control, hyperparameter optimization, and model traceability
 
 **Outcome**: Enabled easy **model comparison, rollback, and continuous improvement** using MLflow.
 
----
+
 
 ### 2. Model Packaging & Deployment
 To ensure the **scalability and usability** of the model in real-world applications, the model was **packaged and deployed as a FastAPI REST API**:
@@ -575,7 +575,7 @@ To ensure the **scalability and usability** of the model in real-world applicati
 
 **Outcome**: The deployed model can **efficiently handle real-time inference requests**, scales automatically, and is optimized for fast response times.
 
----
+
 
 ### 3. CI/CD Pipeline for Automated Deployment
 To ensure **continuous integration and continuous deployment (CI/CD)**, an **automated model deployment pipeline** was implemented:
