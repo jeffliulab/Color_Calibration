@@ -591,9 +591,15 @@ The FastAPI can give back the output RGB values:
 
 <img src="docs/readme/api/fast_api_response.png" width="300">
 
-The API is deployed on a real-time website:
+The API is deployed on Google Run and demonstrated on a real-time website:
 
 <img src="docs/readme/api/website.png" width="500">
+
+Then after few seconds, you will see the output:
+
+<img src="docs/readme/api/real-time-result.png" width="500">
+
+This website's API is deployed on Google Cloud Run, so it is 24/7!
 
 
 

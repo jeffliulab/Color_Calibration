@@ -26,10 +26,6 @@ app.add_middleware(
 
 logging.info("CORS settings applied. API is now accessible from any origin.")
 
-
-
-
-
 # Define root directory
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 logging.info(f"Root directory set to: {ROOT_DIR}")
@@ -97,6 +93,9 @@ async def predict_color(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 if __name__ == "__main__":
-    logging.info("Starting FastAPI server on port 8000...")
+    logging.info("Starting FastAPI server on port 8080...")  
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8080)  # listen 8080 port for google cloud run
+
+
+
