@@ -1,11 +1,19 @@
 # Color Calibration Card Detection Project
 
-## Project Overview and Objectives
+## Real-time Color Calibration Card on Website
+
+You can test the model with uploading or drag the photo with calibration card through this website:
+- [Real-time Color Calibration Website](https://jeffliulab.github.io/real_time_demo/color_calibration/index.html)
+
+## Project Overview
+
+### Objectives
+
 This project aims to develop an automated system for detecting and standardizing color calibration cards in images. The system is designed to accurately locate color calibration cards and apply image processing techniques to achieve standardized presentation, laying the foundation for subsequent color calibration work.
 
 The objective of this project is to use a calibration card to detect color, in any kind of circumstances. The detecting model can detect all kind of colors, which means it has the capability of generalization.
 
-## Project Progress and Final Optimizing Goal
+### Project Progress and Final Optimizing Goal
 
 **Current Progress**: 
 - V1 Finished: **Reaching the general commercial printing standard.** In Feb 20, the XGBoost model reach the highest score of Lab Mean ΔE = 5.20, Lab Median ΔE = 3.96. This result meets general commercial printing standards.
