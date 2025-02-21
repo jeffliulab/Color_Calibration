@@ -36,6 +36,11 @@ The card this project use:
 
 <img src="docs/readme/card.png" width="400">
 
+You can print the card with this picture and use the deployment on website to test your version:
+
+<img src="docs/readme/card/card.png" width="400">
+
+
 
 ## Project Environment and Structrue
 
@@ -50,8 +55,7 @@ For better adaptbility, use Docker.
 ```
 Color_Calibration
 │
-├── notebooks/                     # Explanation and Demos. If you want to know
-│                                  # roughly details, you can directly see here.
+├── notebooks/                     # Experimental models. 
 │
 ├── .dvc/                          # DVC configuration
 ├── data/                          # Data, all stored via DVC in GCP
@@ -72,9 +76,12 @@ Color_Calibration
 │   ├── detect/                    # YOLOv8 - detect calibration card patterns
 │   ├── feature_extraction/        # extract features
 │   ├── train/                     # train and evaluate model
-│   └── /
+│   └── api/                       # FastAPI deployment
 │
-├── test/                          # generalization test
+├── tests/                         # generalization test
+│
+├── .devcontainer                  # Docker for development
+├── Dockerfile                     # Docker for Google Cloud Run API deployment
 │
 ├── docs/                          # docs, logs, readme files, etc.
 ├── outputs/                       # running files tracking, git ignored
