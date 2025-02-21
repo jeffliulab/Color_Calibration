@@ -587,6 +587,14 @@ To ensure the **scalability and usability** of the model in real-world applicati
 
 **Outcome**: The deployed model can **efficiently handle real-time inference requests**, scales automatically, and is optimized for fast response times.
 
+The FastAPI can give back the output RGB values:
+
+<img src="docs/readme/api/fast_api_response.png" width="300">
+
+The API is deployed on a real-time website:
+
+<img src="docs/readme/api/website.png" width="500">
+
 
 
 ### 3. CI/CD Pipeline for Automated Deployment
