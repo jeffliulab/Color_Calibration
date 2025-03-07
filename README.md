@@ -18,16 +18,16 @@ The objective of this project is to use a calibration card to detect color, in a
 
 **Current Progress**:
 
-- V1 Finished: **Reaching the general commercial printing standard.** In Feb 20, the XGBoost model reach the highest score of Lab Mean ΔE = 5.20, Lab Median ΔE = 3.96. This result meets general commercial printing standards.
+- **Reaching the general commercial printing standard.** In March 7, the XGBoost model (with hyperparameter optimization) reach the highest score of **Lab Mean ΔE = 4.59, Lab Median ΔE = 3.61. This result meets general commercial printing standards.**
 
 Through V1 exploration, it is showned that the tree model performs better in this group of dataset and trainings.
 
 I will continue to explore the effects of other data sets, different data enhancements, and even different color recognition cards in the future.
 
-**Future Development Plan:**
+**The Common Goal:**
 
-- V2 Stage: Reduce Mean ΔE to between 3-4, suitable for most commercial applications.
-- V3 Stage: Reduce Lab Mean ΔE to below 2, reaching the professional color calibration field standard.
+- Goal1: Reduce Mean ΔE to between 3-4, suitable for most commercial applications.
+- Goal2: Reduce Lab Mean ΔE to below 2, reaching the professional color calibration field standard.
 
 ## Project Framework
 
@@ -63,6 +63,7 @@ Color_Calibration
 │   ├── raw/                       # raw images
 │   ├── processed/                 # processed images
 │   ├── train/                     # training dataset
+│   ├── tune/                      # optimize hyperparameters
 │   ├── test/                      # test dataset
 │   ├── features/                  # store feature extraction .csv files
 │   └── models/                    # store models

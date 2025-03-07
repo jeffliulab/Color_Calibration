@@ -15,4 +15,5 @@ src/train/train_linear_regression.py
 src/train/train_mlp.py
 src/train/train_rf.py
 src/train/train_xgboost.py
+src/train/train_xgboost_v2.py
 tests/test_generalize.py

@@ -48,7 +48,24 @@ def train_xgboost(save_model=True):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # Train XGBoost model (supports multi-output regression natively)
-    xgb_model = XGBRegressor(n_estimators=500, learning_rate=0.1, max_depth=5, objective='reg:squarederror', random_state=42)
+    """
+    March-7, Bayesian Optimization (See src/tune/tune_xgboost.py)
+
+    Best Hyperparameters:
+    """
+    xgb_model = XGBRegressor(
+        n_estimators=788,             
+        learning_rate=0.06172883480411759,  
+        max_depth=8,                  
+        min_child_weight=1,           
+        gamma=0.2668549364965249,     
+        subsample=0.6,                
+        colsample_bytree=1.0,         
+        reg_alpha=0.0001,             
+        reg_lambda=10.0,              
+        objective='reg:squarederror', 
+        random_state=42
+    )
     xgb_model.fit(X_train, y_train)
 
     # Predict on test set
