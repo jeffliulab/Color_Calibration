@@ -2,3 +2,4 @@
     remote = myremote
 ['remote "myremote"']
     url = gs://color_calibration
+    credentialpath = /home/jeffliu/keys/gcloud/practicalml-448114-4d8869824d4e.json
