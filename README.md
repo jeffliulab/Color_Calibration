@@ -160,9 +160,9 @@ Where `Rp/Gp/Bp` = captured RGB of red/green/blue reference patches; `Cp` = capt
 
 ### Training Data
 
-- ~2,000 original images, augmented to ~9,000+ samples (brightness, hue, blur, noise, rotation, etc.)
+- 255 hand-collected photos, augmented to ~2,294 samples (brightness, hue, blur, noise, rotation, etc.)
 - Train/test split: 70/30, `random_state=42`
-- Data managed via DVC on GCP (`gs://color_calibration`)
+- Hosted on [HuggingFace Datasets](https://huggingface.co/datasets/jeffliulab/card-calibration-v1-data)
 
 <details>
 <summary><strong>Detailed Model Configurations</strong> (click to expand)</summary>
@@ -206,8 +206,7 @@ card-calibration/
 │   │   └── train_mlp.py          # MLP training
 │   ├── tune/tune_xgboost.py     # Bayesian hyperparameter optimization
 │   ├── data_processing/          # Data cleaning & preparation
-│   ├── detect_processing/        # YOLO training data prep & augmentation
-│   └── api/main.py               # Legacy FastAPI (Google Cloud Run)
+│   └── detect_processing/        # YOLO training data prep & augmentation
 │
 ├── scripts/                      # Deployment & data scripts
 │   ├── deploy_space.py           # Push space/ → HF Spaces
@@ -285,7 +284,7 @@ The full dataset (255 hand-collected photos + augmentations + YOLO annotations +
 python scripts/dataset_download.py
 ```
 
-This downloads ~360 MB and extracts everything into `data/` matching the layout that all training scripts expect. No GCP credentials, no DVC, no external tools required.
+This downloads ~360 MB and extracts everything into `data/` matching the layout that all training scripts expect.
 
 ### Contents
 

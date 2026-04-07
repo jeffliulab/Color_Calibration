@@ -27,7 +27,7 @@ HuggingFace (jeffliulab):
 | Model | HF Model | `jeffliulab/card-calibration-v1` |
 | Demo | HF Space | `jeffliulab/card-calibration-v1` |
 
-**No DVC, no GCP, no external tools.** Run `python scripts/dataset_download.py` to fetch all data.
+Run `python scripts/dataset_download.py` to fetch all data into `data/`.
 
 ## Repository Layout
 
@@ -45,8 +45,7 @@ Color_Calibration/
 │   │   └── train_mlp.py          # Small neural network
 │   ├── tune/tune_xgboost.py      # Bayesian hyperparameter optimisation
 │   ├── data_processing/          # Data cleaning, augmentation prep
-│   ├── detect_processing/        # YOLO training data prep & augmentation
-│   └── api/main.py               # Legacy FastAPI deployment (Google Cloud Run)
+│   └── detect_processing/        # YOLO training data prep & augmentation
 │
 ├── space/                        # ** HuggingFace Space deployment **
 │   ├── app.py                    # Gradio web UI
@@ -68,7 +67,6 @@ Color_Calibration/
 ├── notebooks/                    # Jupyter experiments (exploration, not prod)
 ├── docs/                         # Images and documentation assets
 ├── data/                         # Dataset (gitignored, via dataset_download.py)
-├── Dockerfile                    # Legacy: Google Cloud Run deployment
 ├── setup.py                      # pip install -e .
 └── README.md
 ```
@@ -187,7 +185,6 @@ The Space (`space/app.py`) auto-downloads models from HF Hub on first request �
 | Train XGBoost | `src/train/train_xgboost.py` → `train_xgboost()` |
 | Train Random Forest | `src/train/train_rf.py` → `train_random_forest()` |
 | Hyperparameter tuning | `src/tune/tune_xgboost.py` |
-| Legacy FastAPI | `src/api/main.py` |
 | Deploy to HF Space | `scripts/deploy_space.py` |
 | Upload models to HF | `scripts/hf_upload.py` |
 | Pack dataset | `scripts/dataset_pack.py` |

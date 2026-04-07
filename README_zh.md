@@ -160,9 +160,9 @@
 
 ### 训练数据
 
-- 约 2,000 张原始图片，增强后扩展至约 9,000+ 样本（亮度、色调、模糊、噪声、旋转等）
+- 255 张亲手采集的照片，增强后扩展至 2,294 张样本（亮度、色调、模糊、噪声、旋转等）
 - 训练/测试划分：70/30，`random_state=42`
-- 数据通过 DVC 管理，存储在 GCP（`gs://color_calibration`）
+- 托管在 [HuggingFace Datasets](https://huggingface.co/datasets/jeffliulab/card-calibration-v1-data)
 
 <details>
 <summary><strong>各模型详细配置</strong>（点击展开）</summary>
@@ -206,8 +206,7 @@ card-calibration/
 │   │   └── train_mlp.py          # MLP 训练
 │   ├── tune/tune_xgboost.py     # 贝叶斯超参数优化
 │   ├── data_processing/          # 数据清理 & 预处理
-│   ├── detect_processing/        # YOLO 训练数据准备 & 增强
-│   └── api/main.py               # 旧版 FastAPI（Google Cloud Run）
+│   └── detect_processing/        # YOLO 训练数据准备 & 增强
 │
 ├── scripts/                      # 部署 & 数据脚本
 │   ├── deploy_space.py           # 推送 space/ → HF Spaces
@@ -285,7 +284,7 @@ python scripts/dataset_upload.py
 python scripts/dataset_download.py
 ```
 
-下载约 360 MB 数据并解压到 `data/`，目录结构与所有训练脚本期望的完全一致。**无需 GCP 凭证、无需 DVC、无需任何外部工具**。
+下载约 360 MB 数据并解压到 `data/`，目录结构与所有训练脚本期望的完全一致。
 
 ### 内容
 
